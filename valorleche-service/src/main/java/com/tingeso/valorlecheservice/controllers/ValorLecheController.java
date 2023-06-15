@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/acopio")
+@RequestMapping("/valorleche")
 public class ValorLecheController {
 
     @Autowired

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tingeso</groupId>
-	<artifactId>marcas-reloj-service</artifactId>
+	<artifactId>valorleche-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>marcas-reloj-service</name>
-	<description>Empleado</description>
+	<name>valorleche-service</name>
+	<description>ValorLeche</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.4</spring-cloud.version>
