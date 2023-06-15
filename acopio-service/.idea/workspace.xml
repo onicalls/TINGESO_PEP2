@@ -4,55 +4,143 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6782c5d0-74a1-43de-b168-87b425e22abc" name="Changes" comment="" />
+    <list default="true" id="e791bab4-dac1-4e0c-9180-e55eb81c5171" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../config-data/.idea/config-data.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/controllers/PagoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/Data.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/ValorLecheServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/controllers/ValorLecheController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/entities/ValorLecheEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/repositories/ValorLecheRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/services/ValorLecheService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/main/resources/import.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../valorleche-service/src/test/java/com/tingeso/valorlecheservice/MarcasRelojServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/java/com/tingeso/autorizacionservice/AutorizacionServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/java/com/tingeso/autorizacionservice/controllers/AutorizacionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/java/com/tingeso/autorizacionservice/entities/AutorizacionEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/java/com/tingeso/autorizacionservice/repositories/AutorizacionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/java/com/tingeso/autorizacionservice/services/AutorizacionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/main/resources/import.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../autorizacion-service/src/test/java/com/tingeso/autorizacionservice/AutorizacionServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config-data/justificativo-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../config-data/valorleche-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config-data/marcas-reloj-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../config-data/acopio-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config-data/oficinaRRHH-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../config-data/pago-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/java/com/tingeso/justificativoservice/JustificativoServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/java/com/tingeso/justificativoservice/controllers/JustificativoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/java/com/tingeso/justificativoservice/entities/JustificativoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/java/com/tingeso/justificativoservice/repositories/JustificativoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/java/com/tingeso/justificativoservice/services/JustificativoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/main/resources/import.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../justificativo-service/src/test/java/com/tingeso/justificativoservice/JustificativoServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/Data.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/java/com/tingeso/marcasrelojservice/MarcasRelojServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/java/com/tingeso/marcasrelojservice/controllers/MarcasRelojController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/java/com/tingeso/marcasrelojservice/entities/MarcasRelojEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/java/com/tingeso/marcasrelojservice/repositories/MarcasRelojRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/java/com/tingeso/marcasrelojservice/services/MarcasRelojService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/resources/bootstrap.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/main/resources/import.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marcas-reloj-service/src/test/java/com/tingeso/marcasrelojservice/MarcasRelojServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/OficinaRrhhServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/PagoServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/config/RestTemplateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/config/RestTemplateConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/controllers/OficinaRRHHController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/entities/OficinaRRHHEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/entities/PagoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/models/AutorizacionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/models/PagoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/models/EmpleadoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/models/ProveedorModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/models/JustificativoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/models/ValorLecheModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/models/MarcasRelojModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/models/AcopioModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/repositories/OficinaRRHHRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/repositories/PagoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/java/com/tingeso/oficinaRRHHservice/services/OficinaRRHHService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/java/com/tingeso/pagoservice/services/PagoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/main/resources/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oficinaRRHH-service/src/test/java/com/tingeso/oficinaRRHHservice/OficinaRrhhServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pago-service/src/test/java/com/tingeso/pagoservice/PagoServiceApplicationTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Dockerfile" />
-      </list>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2QnrZRqKWilHASyLCDnm93Dr5Tg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2RFFeAVqURQg82C0ovHBjDAVeKM" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/onica/OneDrive/Documentos/USACH/MINGESO/PEP2/config-service",
+    "last_opened_file_path": "C:/Users/onica/IdeaProjects/TINGESO_PEP2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
     "show.migrate.to.gradle.popup": "false",
+    "spring.configuration.checksum": "5edc0cd27e78a3e6f3ca063ad720ed48",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="AcopioServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="acopio-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tingeso.acopioservice.AcopioServiceApplication" />
+    <configuration name="MarcasRelojServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="marcas-reloj-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tingeso.marcasrelojservice.MarcasRelojServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -61,13 +149,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6782c5d0-74a1-43de-b168-87b425e22abc" name="Changes" comment="" />
-      <created>1686000242462</created>
+      <changelist id="e791bab4-dac1-4e0c-9180-e55eb81c5171" name="Changes" comment="" />
+      <created>1686838019707</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1686000242462</updated>
-      <workItem from="1686000243499" duration="880000" />
-      <workItem from="1686001441712" duration="67000" />
+      <updated>1686838019707</updated>
+      <workItem from="1686838020799" duration="557000" />
+      <workItem from="1686859156146" duration="1263000" />
     </task>
     <servers />
   </component>
