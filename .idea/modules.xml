@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PEP2.iml" filepath="$PROJECT_DIR$/.idea/PEP2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/acopio-service/acopio-service.iml" filepath="$PROJECT_DIR$/acopio-service/acopio-service.iml" />
     </modules>
   </component>
 </project>

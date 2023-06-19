@@ -17,6 +17,9 @@
         <option value="$PROJECT_DIR$/marcas-reloj-service/pom.xml" />
         <option value="$PROJECT_DIR$/justificativo-service/pom.xml" />
         <option value="$PROJECT_DIR$/proveedor-service/pom.xml" />
+        <option value="$PROJECT_DIR$/valorleche-service/pom.xml" />
+        <option value="$PROJECT_DIR$/acopio-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pago-service/pom.xml" />
       </list>
     </option>
   </component>
