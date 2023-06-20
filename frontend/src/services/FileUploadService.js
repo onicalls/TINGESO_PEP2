@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/marcas-reloj/";
+const API_URL = "http://localhost:8080/acopio/";
 
 class FileUploadService{
     

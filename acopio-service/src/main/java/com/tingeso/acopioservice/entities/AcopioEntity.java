@@ -20,10 +20,10 @@ public class AcopioEntity{
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
+    private String fecha;
     private String proveedor;
     private String turno;
     private double klsLeche;
-    private String fecha;
 
     @Override
     public boolean equals(Object o) {

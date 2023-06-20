@@ -23,8 +23,8 @@ class FileUploadComponent extends Component{
   
   onFileUpload = () => {
     swal({
-      title: "¿Está seguro de que desea cargar el archivo de texto?",
-      text: "Tenga en cuenta que el archivo solo será cargado si su nombre es 'Data.txt' y si su formato es correcto.",
+      title: "¿Está seguro de que desea cargar el archivo csv?",
+      text: "Tenga en cuenta que el archivo solo será cargado si su nombre es 'acopio.csv' y si su formato es correcto.",
       icon: "warning",
       buttons: ["Cancelar", "Cargar"],
       dangerMode: true
@@ -66,7 +66,7 @@ class FileUploadComponent extends Component{
           <hr>
           </hr>
           <div class="form1">
-            <h5><b>Recuerde que el nombre del archivo debe ser "Data.txt"!</b></h5>
+            <h5><b>Recuerde que el nombre del archivo debe ser "acopio.csv"!</b></h5>
           </div>
         </Styles>
       </div>

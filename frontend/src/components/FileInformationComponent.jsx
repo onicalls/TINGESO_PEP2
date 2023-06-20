@@ -11,7 +11,7 @@ class FileInformationComponent extends Component{
     }
 
     componentDidMount(){
-        fetch("http://localhost:8080/marcas-reloj")
+        fetch("http://localhost:8080/acopio")
         .then((response) => response.json())
         .then((data) => this.setState({ data: data }));
     }
@@ -21,23 +21,25 @@ class FileInformationComponent extends Component{
             <div className="home">
                 <NavbarComponent2 />
                 <Styles>
-                <h1 className="text-center"> <b>Información de Data.txt</b></h1>
+                <h1 className="text-center"> <b>Información de acopio.csv</b></h1>
                     <div className="f">
 
                         <table border="1" class="content-table">
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Rut</th>
+                                    <th>Turno</th>
+                                    <th>Proveedor</th>
+                                    <th>KLS Leche</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.data.map((data) => (
                                     <tr key={data.id}>
                                         <td>{data.fecha}</td>
-                                        <td>{data.hora}</td>
-                                        <td>{data.rut}</td>
+                                        <td>{data.turno}</td>
+                                        <td>{data.proveedor}</td>
+                                        <td>{data.klsLeche}</td>
                                     </tr>
                                 ))}
                             </tbody>

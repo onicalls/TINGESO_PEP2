@@ -30,10 +30,10 @@ public class AcopioService {
         return (ArrayList<AcopioEntity>) acopioRepository.findAll();
     }
 
-    public String guardar(MultipartFile file) {
+    public void guardar(MultipartFile file) {
         String filename = file.getOriginalFilename();
         if (filename != null) {
-            if ((!file.isEmpty()) && (filename.toUpperCase().equals("acopio.csv"))) {
+            if ((!file.isEmpty()) && (filename.toUpperCase().equals("ACOPIO.CSV"))) {
                 try {
                     byte[] bytes = file.getBytes();
                     Path path = Paths.get(file.getOriginalFilename());
@@ -43,9 +43,7 @@ public class AcopioService {
                     logg.error("ERROR", e);
                 }
             }
-            return "Archivo guardado con exito!";
         } else {
-            return "No se pudo guardar el archivo";
         }
     }
 
@@ -57,7 +55,7 @@ public class AcopioService {
         return acopioRepository.buscarData2(rut, fecha);
     }
 
-    public void leerTxt(String direccion) {
+    public void leerCsv(String direccion) {
         String texto = "";
         BufferedReader bf = null;
         acopioRepository.deleteAll();
@@ -66,9 +64,9 @@ public class AcopioService {
             String temp = "";
             String bfRead;
             while ((bfRead = bf.readLine()) != null) {
-                String fecha = bfRead.split(";")[0];
+                String fecha = bfRead.split(",")[0];
                 String newFecha = fecha.replaceAll("/","-");
-                guardarDataDB(newFecha, bfRead.split(";")[1], bfRead.split(";")[2], Double.parseDouble(bfRead.split(";")[3]));
+                guardarDataDB(newFecha, bfRead.split(",")[1], bfRead.split(",")[2], Double.parseDouble(bfRead.split(",")[3]));
                 temp = temp + "\n" + bfRead;
             }
             texto = temp;
@@ -99,13 +97,12 @@ public class AcopioService {
         guardarData(newData);
     }
 
-
     public String obtenerFechaRut(String rut){
         return acopioRepository.buscarFechaRut(rut);
     }
 
-    public List<String> obtenerRuts() {
-        return acopioRepository.findDistinctRut();
+    public List<String> obtenerProveedores() {
+        return acopioRepository.findDistinctProveedor();
     }
 
     public void eliminarData(ArrayList<AcopioEntity> datas){

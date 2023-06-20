@@ -6,6 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e791bab4-dac1-4e0c-9180-e55eb81c5171" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/controllers/AcopioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/controllers/AcopioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/entities/AcopioEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/entities/AcopioEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/repositories/AcopioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/repositories/AcopioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/services/AcopioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/services/AcopioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/FileInformationComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/FileInformationComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/FileUploadComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/FileUploadComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/services/FileUploadService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/services/FileUploadService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +49,13 @@
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/onica/IdeaProjects/TINGESO_PEP2/pago-service",
+    "last_opened_file_path": "C:/Users/onica/IdeaProjects/TINGESO_PEP2/acopio-service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "show.migrate.to.gradle.popup": "false",
-    "spring.configuration.checksum": "5edc0cd27e78a3e6f3ca063ad720ed48",
+    "spring.configuration.checksum": "2ac388b6b86ebf429b979d1cc5362cb4",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -59,19 +67,6 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="acopio-service" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="acopio-service" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="AcopioServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="acopio-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tingeso.acopioservice.AcopioServiceApplication" />
@@ -91,6 +86,7 @@
       <workItem from="1686838020799" duration="557000" />
       <workItem from="1686859156146" duration="1263000" />
       <workItem from="1686860975083" duration="708000" />
+      <workItem from="1687297953087" duration="901000" />
     </task>
     <servers />
   </component>

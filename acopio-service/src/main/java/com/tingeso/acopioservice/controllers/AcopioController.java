@@ -29,9 +29,9 @@ public class AcopioController {
         return ResponseEntity.ok(data);
     }
 
-    @GetMapping("/rut")
-    public ResponseEntity<List<String>> obtenerRutsDeData(){
-        List<String> ruts = acopioRepository.obtenerRuts();
+    @GetMapping("/proveedor")
+    public ResponseEntity<List<String>> obtenerProveedoresDeData(){
+        List<String> ruts = acopioRepository.obtenerProveedores();
         if(ruts.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -70,6 +70,6 @@ public class AcopioController {
     @PostMapping
     public void guardarData(@RequestParam("file") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException{
         acopioRepository.guardar(file);
-        acopioRepository.leerTxt("Data.txt");
+        acopioRepository.leerCsv("acopio.csv");
     }
 }

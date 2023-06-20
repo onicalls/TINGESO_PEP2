@@ -16,8 +16,8 @@ public interface AcopioRepository extends JpaRepository <AcopioEntity, Integer>{
             nativeQuery = true)
     AcopioEntity buscarData(@Param("proveedor") String proveedor, @Param("turno") String turno, @Param("klsLeche") Double klsLeche, @Param("fecha") String fecha);
 
-    @Query(value = "select distinct rut from acopio", nativeQuery = true)
-    List<String> findDistinctRut();
+    @Query(value = "select distinct proveedor from acopio", nativeQuery = true)
+    List<String> findDistinctProveedor();
 
     @Query(value = "select e.fecha from acopio as e where e.rut = :rut limit 1", nativeQuery = true)
     String buscarFechaRut(@Param("rut")String rut);
