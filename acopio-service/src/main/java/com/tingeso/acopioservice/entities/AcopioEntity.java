@@ -21,8 +21,8 @@ public class AcopioEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
     private String fecha;
-    private String proveedor;
     private String turno;
+    private String proveedor;
     private double klsLeche;
 
     @Override

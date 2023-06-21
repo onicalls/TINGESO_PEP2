@@ -88,11 +88,11 @@ public class AcopioService {
         acopioRepository.save(data);
     }
 
-    public void guardarDataDB(String fecha, String proveedor, String turno, double klsLeche) {
+    public void guardarDataDB(String fecha, String turno, String proveedor, double klsLeche) {
         AcopioEntity newData = new AcopioEntity();
         newData.setFecha(fecha);
-        newData.setProveedor(proveedor);
         newData.setTurno(turno);
+        newData.setProveedor(proveedor);
         newData.setKlsLeche(klsLeche);
         guardarData(newData);
     }
