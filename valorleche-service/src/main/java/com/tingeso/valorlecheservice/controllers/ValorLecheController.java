@@ -18,11 +18,11 @@ import java.util.List;
 public class ValorLecheController {
 
     @Autowired
-    private ValorLecheService marcasRelojService;
+    private ValorLecheService valorLecheService;
 
     @GetMapping
     public ResponseEntity<ArrayList<ValorLecheEntity>> obtenerData() {
-        ArrayList<ValorLecheEntity> data = marcasRelojService.obtenerData();
+        ArrayList<ValorLecheEntity> data = valorLecheService.obtenerData();
         if (data.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -31,7 +31,7 @@ public class ValorLecheController {
 
     @GetMapping("/rut")
     public ResponseEntity<List<String>> obtenerRutsDeData(){
-        List<String> ruts = marcasRelojService.obtenerRuts();
+        List<String> ruts = valorLecheService.obtenerRuts();
         if(ruts.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -42,13 +42,13 @@ public class ValorLecheController {
     public ResponseEntity<ValorLecheEntity> obtenerHoraEntradaPorRut(
             @PathVariable("rut") String rut, @PathVariable("fecha") String fecha)
     {
-        ValorLecheEntity marca_entrada = marcasRelojService.obtenerEspecifico(rut, fecha);
+        ValorLecheEntity marca_entrada = valorLecheService.obtenerEspecifico(rut, fecha);
         return ResponseEntity.ok(marca_entrada);
     }
 
     @GetMapping("/primeraasistencia/{rut}")
     public ResponseEntity<String> obtenerPrimeraAsistencia(@PathVariable("rut") String rut){
-     String fecha = marcasRelojService.obtenerFechaRut(rut);
+     String fecha = valorLecheService.obtenerFechaRut(rut);
      if (fecha.isEmpty()){
          return ResponseEntity.noContent().build();
      }
@@ -59,13 +59,13 @@ public class ValorLecheController {
     public ResponseEntity<ValorLecheEntity> obtenerHoraSalidaPorRut(
             @PathVariable("rut") String rut, @PathVariable("fecha") String fecha)
     {
-        ValorLecheEntity marca_salida = marcasRelojService.obtenerEspecifico2(rut, fecha);
+        ValorLecheEntity marca_salida = valorLecheService.obtenerEspecifico2(rut, fecha);
         return ResponseEntity.ok(marca_salida);
     }
 
     @PostMapping
     public void guardarData(@RequestParam("file") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException{
-        marcasRelojService.guardar(file);
-        marcasRelojService.leerTxt("Data.txt");
+        valorLecheService.guardar(file);
+        valorLecheService.leerTxt("Data.txt");
     }
 }

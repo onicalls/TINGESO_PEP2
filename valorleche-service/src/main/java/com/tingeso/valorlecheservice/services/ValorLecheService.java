@@ -22,18 +22,18 @@ import java.util.List;
 public class ValorLecheService {
 
     @Autowired
-    private ValorLecheRepository marcasRelojRepository;
+    private ValorLecheRepository valorLecheRepository;
 
     private final Logger logg = LoggerFactory.getLogger(ValorLecheService.class);
 
     public ArrayList<ValorLecheEntity> obtenerData() {
-        return (ArrayList<ValorLecheEntity>) marcasRelojRepository.findAll();
+        return (ArrayList<ValorLecheEntity>) valorLecheRepository.findAll();
     }
 
-    public String guardar(MultipartFile file) {
+    public void guardar(MultipartFile file) {
         String filename = file.getOriginalFilename();
         if (filename != null) {
-            if ((!file.isEmpty()) && (filename.toUpperCase().equals("DATA.TXT"))) {
+            if ((!file.isEmpty()) && (filename.toUpperCase().equals("VALORLECHE.CSV"))) {
                 try {
                     byte[] bytes = file.getBytes();
                     Path path = Paths.get(file.getOriginalFilename());
@@ -43,32 +43,31 @@ public class ValorLecheService {
                     logg.error("ERROR", e);
                 }
             }
-            return "Archivo guardado con exito!";
         } else {
-            return "No se pudo guardar el archivo";
         }
     }
 
     public ValorLecheEntity obtenerEspecifico(String rut, String fecha){
-        return marcasRelojRepository.buscarData(rut, fecha);
+        return valorLecheRepository.buscarData(rut, fecha);
     }
 
     public ValorLecheEntity obtenerEspecifico2(String rut, String fecha){
-        return marcasRelojRepository.buscarData2(rut, fecha);
+        return valorLecheRepository.buscarData2(rut, fecha);
     }
 
     public void leerTxt(String direccion) {
         String texto = "";
         BufferedReader bf = null;
-        marcasRelojRepository.deleteAll();
+        valorLecheRepository.deleteAll();
         try {
             bf = new BufferedReader(new FileReader(direccion));
             String temp = "";
             String bfRead;
             while ((bfRead = bf.readLine()) != null) {
-                String fecha = bfRead.split(";")[0];
-                String newFecha = fecha.replaceAll("/","-");
-                guardarDataDB(newFecha, bfRead.split(";")[1], bfRead.split(";")[2]);
+                String[] datos = bfRead.split(",");
+                String proveedor = datos[0];
+                double grasa = Double.parseDouble(datos[1]);
+                double solidoTotal = Double.parseDouble(datos[2]);
                 temp = temp + "\n" + bfRead;
             }
             texto = temp;
@@ -87,26 +86,32 @@ public class ValorLecheService {
     }
 
     public void guardarData(ValorLecheEntity data) {
-        marcasRelojRepository.save(data);
+        valorLecheRepository.save(data);
     }
 
-    public void guardarDataDB(String fecha, String hora, String rut) {
+    public void guardarDataDB(String proveedor, double grasa, double solido, double kilos, String quincena, String constancia, double diasTotalesAcopio, double promedioKilosAcopio) {
         ValorLecheEntity newData = new ValorLecheEntity();
-        newData.setFecha(fecha);
-        newData.setRut(rut);
-        newData.setHora(hora);
+        newData.setProveedor(proveedor);
+        newData.setGrasa(grasa);
+        newData.setSolido(solido);
+        newData.setKilos(kilos);
+        newData.setQuincena(quincena);
+        newData.setConstancia(constancia);
+        newData.setDiasTotalesAcopio(diasTotalesAcopio);
+        newData.setPromedioKilosAcopio(promedioKilosAcopio);
         guardarData(newData);
     }
 
+
     public String obtenerFechaRut(String rut){
-        return marcasRelojRepository.buscarFechaRut(rut);
+        return valorLecheRepository.buscarFechaRut(rut);
     }
 
     public List<String> obtenerRuts() {
-        return marcasRelojRepository.findDistinctRut();
+        return valorLecheRepository.findDistinctRut();
     }
 
     public void eliminarData(ArrayList<ValorLecheEntity> datas){
-        marcasRelojRepository.deleteAll(datas);
+        valorLecheRepository.deleteAll(datas);
     }
 }
