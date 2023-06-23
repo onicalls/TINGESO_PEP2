@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavbarComponent3 from "./NavbarComponent3";
 import styled from "styled-components";
 
-class EmployeeComponent extends Component{
+class ProveedoresComponent extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -11,7 +11,7 @@ class EmployeeComponent extends Component{
     }
 
     componentDidMount(){
-        fetch("http://localhost:8080/empleado")
+        fetch("http://localhost:8080/proveedores")
         .then((response) => response.json())
         .then((data) => this.setState({ employees: data }));
     }
@@ -21,7 +21,7 @@ class EmployeeComponent extends Component{
             <div className="home">
                 <NavbarComponent3 />
                 <Styles>
-                <h1 className="text-center"> <b>Listado de empleados</b></h1>
+                <h1 className="text-center"> <b>Listado de proveedores</b></h1>
                     <div className="f">
                     <table border="1" class="content-table">
                         <thead>
@@ -54,7 +54,7 @@ class EmployeeComponent extends Component{
     }
 }
 
-export default EmployeeComponent;
+export default ProveedoresComponent;
 
 const Styles = styled.div`
 

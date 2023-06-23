@@ -4,11 +4,11 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import NavbarComponent from "./NavbarComponent";
-import FileUploadService from "../services/FileUploadService";
+import FileUploadService from "../services/AcopioService";
 import styled from "styled-components";
 import swal from 'sweetalert';
 
-class FileUploadComponent extends Component{
+class AcopioComponent extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -74,7 +74,7 @@ class FileUploadComponent extends Component{
   }
 }
 
-export default FileUploadComponent;
+export default AcopioComponent;
 
 
 const Styles = styled.div`

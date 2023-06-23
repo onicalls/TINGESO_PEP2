@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavbarComponent2 from "./NavbarComponent2";
 import styled from "styled-components";
 
-class FileInformationComponent extends Component{
+class ValorLecheInformationComponent extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -11,7 +11,7 @@ class FileInformationComponent extends Component{
     }
 
     componentDidMount(){
-        fetch("http://localhost:8080/acopio")
+        fetch("http://localhost:8080/valorleche")
         .then((response) => response.json())
         .then((data) => this.setState({ data: data }));
     }
@@ -21,7 +21,7 @@ class FileInformationComponent extends Component{
             <div className="home">
                 <NavbarComponent2 />
                 <Styles>
-                <h1 className="text-center"> <b>Información de acopio.csv</b></h1>
+                <h1 className="text-center"> <b>Información de valorleche.csv</b></h1>
                     <div className="f">
 
                         <table border="1" class="content-table">
@@ -52,7 +52,7 @@ class FileInformationComponent extends Component{
     }
 }
 
-export default FileInformationComponent;
+export default ValorLecheInformationComponent;
 
 const Styles = styled.div`
 

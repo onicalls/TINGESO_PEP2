@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e791bab4-dac1-4e0c-9180-e55eb81c5171" name="Changes" comment="acopio csv update (table error fix)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/entities/ValorLecheEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/entities/ValorLecheEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/services/ValorLecheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/services/ValorLecheService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +79,8 @@
       <workItem from="1686859156146" duration="1263000" />
       <workItem from="1686860975083" duration="708000" />
       <workItem from="1687297953087" duration="2963000" />
-      <workItem from="1687393724163" duration="439000" />
+      <workItem from="1687393724163" duration="770000" />
+      <workItem from="1687543892473" duration="14000" />
     </task>
     <task id="LOCAL-00001" summary="acopio csv update (table error fix)">
       <created>1687306100608</created>
