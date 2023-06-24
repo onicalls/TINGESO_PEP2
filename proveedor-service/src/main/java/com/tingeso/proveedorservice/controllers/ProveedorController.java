@@ -59,4 +59,13 @@ public class ProveedorController {
         List<AutorizacionModel> autorizaciones = proveedorService.obtenerAutorizaciones(rut);
         return ResponseEntity.ok(autorizaciones);
     }
+
+    @PostMapping("/addProveedor")
+    public String addProveedor(@RequestParam("codigo") String codigo,
+                               @RequestParam("nombre") String nombre,
+                               @RequestParam("categoria") String categoria,
+                               @RequestParam("retencion") String retencion) {
+        proveedorService.guardarProveedor(codigo, nombre, categoria, retencion);
+        return "redirect:/proveedor";
+    }
 }

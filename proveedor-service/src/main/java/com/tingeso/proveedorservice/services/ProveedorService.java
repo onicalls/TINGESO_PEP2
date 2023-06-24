@@ -45,6 +45,12 @@ public class ProveedorService {
         List<JustificativoModel> justificativos = restTemplate.getForObject("http://justificativo-service/justificativos/porproveedores/" + rut, List.class);
         return justificativos;
     }
+
+    public void guardarProveedor(String codigo, String nombre, String categoria, String retencion) {
+        ProveedorEntity proveedor = new ProveedorEntity(codigo, nombre, categoria, retencion);
+        proveedorRepository.save(proveedor);
+    }
+
     public List<AutorizacionModel> obtenerAutorizaciones(String rut) {
         List<AutorizacionModel> autorizaciones = restTemplate.getForObject("http://autorizacion-service/autorizaciones/porproveedores/" + rut, List.class);
         return autorizaciones;

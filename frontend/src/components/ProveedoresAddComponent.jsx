@@ -1,52 +1,64 @@
 import React, { useState } from "react";
-import NavbarComponent3 from "./NavbarComponent3";
+import NavbarComponent4 from "./NavbarComponent4";
 import styled from "styled-components";
-import JustificativoService from "../services/JustificativoService";
+import ProveedorService from "../services/ProveedorService";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 
-export default function JustificativoComponent(props){
+export default function ProveedoresAddComponent(props){
 
     const initialState = {
-        rut: "",
-        fecha: ""
+        codigo: "",
+        nombre: "",
+        categoria: "",
+        retencion: ""
     };
 
     const [input, setInput] = useState(initialState);
     
-    const changeRutHandler = event => {
-        setInput({ ...input, rut: event.target.value });
-        console.log(input.rut);
+    const changeCodigoHandler = event => {
+        setInput({ ...input, codigo: event.target.value });
+        console.log(input.codigo);
     };
-    const changeFechaHandler = event => {
-        setInput({ ...input, fecha: event.target.value });
-        console.log(input.fecha);
+    const changeNombreHandler = event => {
+        setInput({ ...input, nombre: event.target.value });
+        console.log(input.nombre);
+    };
+    const changeCategoriaHandler = event => {
+        setInput({ ...input, categoria: event.target.value });
+        console.log(input.categoria);
+    };
+    const changeRetencionHandler = event => {
+        setInput({ ...input, retencion: event.target.value });
+        console.log(input.retencion);
     };
 
     
     const ingresarJustificativo = e => {
         e.preventDefault();
         swal({
-            title: "¿Está seguro de que desea enviar el justificativo?",
-            text: "Una vez enviado, no podrá ser modificado. El empleado quedará JUSTIFICADO de su ausencia en la FECHA indicada.",
+            title: "¿Está seguro de que desea agregar este proveedor?",
+            text: "Una vez enviado, no podrá ser modificado. El proveedor será añadido.",
             icon: "warning",
             buttons: ["Cancelar", "Enviar"],
             dangerMode: true
         }).then(respuesta=>{
             if(respuesta){
-                swal("Justificativo enviado correctamente!", {icon: "success", timer: "3000"});
-                let justificativo = { fecha: input.fecha, rut: input.rut};
-                console.log(input.rut)
-                console.log(input.fecha)
-                console.log("justificativo => " + JSON.stringify(justificativo));
-                JustificativoService.IngresarJustificativo(justificativo).then(
+                swal("Proveedor agregado correctamente!", {icon: "success", timer: "3000"});
+                let proveedor = { codigo: input.codigo, nombre: input.nombre, categoria: input.categoria, retencion: input.retencion};
+                console.log(input.codigo)
+                console.log(input.nombre)
+                console.log(input.categoria)
+                console.log(input.retencion)
+                console.log("proveedor => " + JSON.stringify(proveedor));
+                ProveedorService.IngresarProveedor(proveedor).then(
                     (res) => {
                     }
                   );
                 }
             else{
-                swal({text: "Justificativo no enviado.", icon: "error"});
+                swal({text: "Proveedor no agregado.", icon: "error"});
             }
         });
     };
@@ -55,20 +67,20 @@ export default function JustificativoComponent(props){
             
             <Styles>
             <div className="home">
-                <NavbarComponent3 />
+                <NavbarComponent4 />
                     <div className="mainclass">
                         <div className="form1">
-                            <h1 className="text-center"><b>Justificativos</b></h1>
+                            <h1 className="text-center"><b>Proveedores</b></h1>
                             <div className="formcontainer">
                                 <hr></hr>
                                 <div className="container">
                                     <Form>
-                                        <Form.Group className="mb-3" controlId="rut" value = {input.rut} onChange={changeRutHandler}>
+                                        <Form.Group className="mb-3" controlId="rut" value = {input.rut} onChange={changeCodigoHandler}>
                                             <Form.Label>Rut del empleado</Form.Label>
                                             <Form.Control type="rut" placeholder="Rut del empleado en formato xx.xxx.xxx-x" />
                                         </Form.Group>
 
-                                        <Form.Group className="mb-3" controlId="fecha" value = {input.fecha} onChange={changeFechaHandler}>
+                                        <Form.Group className="mb-3" controlId="fecha" value = {input.fecha} onChange={changeNombreHandler}>
                                             <Form.Label>Fecha del justificativo</Form.Label>
                                             <Form.Control type="fecha" placeholder="Fecha en formato AAAA-MM-DD" />
                                         </Form.Group>
