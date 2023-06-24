@@ -1,5 +1,4 @@
-INSERT INTO proveedor(rut,apellidos,nombres,fecha_nacimiento,categoria,fecha_ingreso) VALUES ("537-8", "SERRANO C", "JOSE", "2000/10/13", "C", "2010/05/06");
-INSERT INTO proveedor(rut,apellidos,nombres,fecha_nacimiento,categoria,fecha_ingreso) VALUES ("671-9", "BELLO R", "PHILIP", "1982/05/24", "A", "2010/05/06");
-INSERT INTO proveedor(rut,apellidos,nombres,fecha_nacimiento,categoria,fecha_ingreso) VALUES ("982-4", "ROMAN A", "ALBERTO", "1964/04/18", "B", "2015/05/30");
-INSERT INTO proveedor(rut,apellidos,nombres,fecha_nacimiento,categoria,fecha_ingreso) VALUES ("123-4", "CORREA C", "VANANA", "2001/05/15", "C", "2018/05/30");
-INSERT INTO proveedor(rut,apellidos,nombres,fecha_nacimiento,categoria,fecha_ingreso) VALUES ("321-1", "FORKAN C", "NICOLAS", "2002/09/20", "B", "2016/12/01");
+INSERT INTO proveedor(codigo,nombre,categoria,retencion) VALUES ("10023","Soprole","A","Sí");
+INSERT INTO proveedor(codigo,nombre,categoria,retencion) VALUES ("10024","Colún","B","Sí");
+INSERT INTO proveedor(codigo,nombre,categoria,retencion) VALUES ("10025","Nestlé","C","No");
+INSERT INTO proveedor(codigo,nombre,categoria,retencion) VALUES ("10026","Capel","D","No");

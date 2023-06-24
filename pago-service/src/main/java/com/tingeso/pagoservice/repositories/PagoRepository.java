@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PagoRepository extends JpaRepository<PagoEntity, String> {
 
-    public PagoEntity findByRut(String rut);
+    public PagoEntity findByProveedor(String proveedor);
 
-    @Query(value = "insert into planilla_sueldos(rut) values(?)",
+    @Query(value = "insert into pago(proveedor) values(?)",
             nativeQuery = true)
-    void insertarDatos(@Param("rut") String rut);
+    void insertarDatos(@Param("proveedor") String rut);
 }

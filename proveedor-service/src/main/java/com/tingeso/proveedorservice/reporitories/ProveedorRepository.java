@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProveedorRepository extends JpaRepository<ProveedorEntity, String>{
+public interface ProveedorRepository extends JpaRepository<ProveedorEntity, String> {
 
-    @Query("select e from ProveedorEntity e where e.nombres = :nombres")
-    ProveedorEntity findByNameCustomQuery(@Param("nombres") String nombres);
+    @Query("select e from ProveedorEntity e where e.nombre = :nombre")
+    ProveedorEntity findByNameCustomQuery(@Param("nombre") String nombre);
 
-    @Query("select e.categoria from ProveedorEntity e where e.rut = :rut")
-    String findCategory(@Param("rut") String rut);
+    @Query("select e.categoria from ProveedorEntity e where e.codigo = :codigo")
+    String findCategory(@Param("codigo") String codigo);
 
-    @Query("select e from ProveedorEntity e where e.rut = :rut")
-    ProveedorEntity findByRut(@Param("rut")String rut);
+    @Query("select e from ProveedorEntity e where e.codigo = :codigo")
+    ProveedorEntity findByCodigo(@Param("codigo") String codigo);
 }

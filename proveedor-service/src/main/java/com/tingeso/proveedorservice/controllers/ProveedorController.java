@@ -18,15 +18,15 @@ public class ProveedorController {
     ProveedorService proveedorService;
 
     @GetMapping
-    public ResponseEntity<List<ProveedorEntity>> obtenerproveedors(){
-        List<ProveedorEntity> proveedors = proveedorService.obtenerproveedors();
+    public ResponseEntity<List<ProveedorEntity>> obtenerProveedores(){
+        List<ProveedorEntity> proveedors = proveedorService.obtenerProveedores();
         if(proveedors.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(proveedors);
     }
     @GetMapping("/{rut}")
     public ResponseEntity<ProveedorEntity> obtenerPorRut(@PathVariable("rut") String rut){
-        ProveedorEntity proveedor = proveedorService.findByRut(rut);
+        ProveedorEntity proveedor = proveedorService.findByCodigo(rut);
         if(proveedor == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(proveedor);
@@ -44,7 +44,7 @@ public class ProveedorController {
 
     @GetMapping("/justificativos/{rut}")
     public ResponseEntity<List<JustificativoModel>> obtenerJustificativos(@PathVariable("rut") String rut) {
-        ProveedorEntity proveedor = proveedorService.findByRut(rut);
+        ProveedorEntity proveedor = proveedorService.findByCodigo(rut);
         if(proveedor == null)
             return ResponseEntity.notFound().build();
         List<JustificativoModel> justificativos = proveedorService.obtenerJustificativos(rut);
@@ -53,7 +53,7 @@ public class ProveedorController {
 
     @GetMapping("/autorizaciones/{rut}")
     public ResponseEntity<List<AutorizacionModel>> obtenerAutorizaciones(@PathVariable("rut") String rut) {
-        ProveedorEntity proveedor = proveedorService.findByRut(rut);
+        ProveedorEntity proveedor = proveedorService.findByCodigo(rut);
         if(proveedor == null)
             return ResponseEntity.notFound().build();
         List<AutorizacionModel> autorizaciones = proveedorService.obtenerAutorizaciones(rut);

@@ -7,7 +7,7 @@ function NavbarComponent2(){
         <NavStyle>
             <header class="header">
                 <div class="logo">
-                    <h1>MueblesStgo</h1>
+                    <h1>MilkStgo</h1>
                 </div>
                 <nav>
                 </nav>

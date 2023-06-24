@@ -17,10 +17,8 @@ import javax.persistence.Table;
 public class ProveedorEntity{
     @Id
     @NotNull
-    private String rut;
-    private String apellidos;
-    private String nombres;
-    private String fecha_nacimiento;
+    private String codigo;
+    private String nombre;
     private String categoria;
-    private String fecha_ingreso;
+    private String retencion;
 }

@@ -6,14 +6,14 @@ class ProveedoresComponent extends Component{
     constructor(props){
         super(props);
         this.state = {
-            employees: [],
+            proveedors: [],
         };
     }
 
     componentDidMount(){
-        fetch("http://localhost:8080/proveedores")
+        fetch("http://localhost:8080/proveedor")
         .then((response) => response.json())
-        .then((data) => this.setState({ employees: data }));
+        .then((data) => this.setState({ proveedors: data }));
     }
 
     render(){
@@ -21,28 +21,25 @@ class ProveedoresComponent extends Component{
             <div className="home">
                 <NavbarComponent3 />
                 <Styles>
-                <h1 className="text-center"> <b>Listado de proveedores</b></h1>
+                <h1 className="text-center"> <b>Listado de Proveedores</b></h1>
                     <div className="f">
                     <table border="1" class="content-table">
                         <thead>
                             <tr>
-                                <th>Rut</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Fecha de Nacimiento</th>
-                                <th>Categoria</th>
-                                <th>Fecha de Ingreso</th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Afecto a Retención</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.employees.map((employee) => (
-                                <tr key={employee.rut}>
-                                    <td>{employee.rut}</td>
-                                    <td>{employee.nombres}</td>
-                                    <td>{employee.apellidos}</td>
-                                    <td>{employee.fecha_nacimiento}</td>
-                                    <td>{employee.categoria}</td>
-                                    <td>{employee.fecha_ingreso}</td>
+                            {this.state.proveedors.map((proveedor) => (
+                                <tr key={proveedor.codigo}>
+                                    <td>{proveedor.codigo}</td>
+                                    <td>{proveedor.nombre}</td>
+                                    <td>{proveedor.categoria}</td>
+                                    <td>{proveedor.retencion}</td>
+
                                 </tr>
                             ))}
                         </tbody>

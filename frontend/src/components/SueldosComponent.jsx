@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import NavbarComponent3 from "./NavbarComponent3";
 import styled from "styled-components";
 
-class SueldosComponent extends Component{
+class pagoComponent extends Component{
     constructor(props) {
         super(props);
         this.state = {
-          sueldos: [],
+          pago: [],
         };
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/oficinaRRHH")
+        fetch("http://localhost:8080/pago")
           .then((response) => response.json())
-          .then((data) => this.setState({ sueldos: data }));
+          .then((data) => this.setState({ pago: data }));
       }
 
       render(){
@@ -21,7 +21,7 @@ class SueldosComponent extends Component{
             <div className="home">
                 <NavbarComponent3 />
                 <Styles>
-                    <h1 className="text-center"> <b>Reporte de Planilla de Sueldos ($CLP)</b></h1>
+                    <h1 className="text-center"> <b>Reporte de Planilla de pago ($CLP)</b></h1>
                     <div className="f">
                         <table border="1" class="content-table">
                             <thead>
@@ -41,20 +41,20 @@ class SueldosComponent extends Component{
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.sueldos.map((sueldos) => (
-                                    <tr key={sueldos.rut}>
-                                        <td>{sueldos.rut}</td>
-                                        <td>{sueldos.nombre_empleado}</td>
-                                        <td>{sueldos.categoria}</td>
-                                        <td>{sueldos.dedicacion}</td>
-                                        <td>{sueldos.sueldo_mensual}</td>
-                                        <td>{sueldos.bonificacion_dedicacion}</td>
-                                        <td>{sueldos.horas_extras}</td>
-                                        <td>{sueldos.descuentos}</td>
-                                        <td>{sueldos.sueldo_bruto}</td>
-                                        <td>{sueldos.previsional}</td>
-                                        <td>{sueldos.salud}</td>
-                                        <td>{sueldos.sueldo_final}</td>
+                                {this.state.pago.map((pago) => (
+                                    <tr key={pago.rut}>
+                                        <td>{pago.rut}</td>
+                                        <td>{pago.nombre_empleado}</td>
+                                        <td>{pago.categoria}</td>
+                                        <td>{pago.dedicacion}</td>
+                                        <td>{pago.sueldo_mensual}</td>
+                                        <td>{pago.bonificacion_dedicacion}</td>
+                                        <td>{pago.horas_extras}</td>
+                                        <td>{pago.descuentos}</td>
+                                        <td>{pago.sueldo_bruto}</td>
+                                        <td>{pago.previsional}</td>
+                                        <td>{pago.salud}</td>
+                                        <td>{pago.sueldo_final}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -66,7 +66,7 @@ class SueldosComponent extends Component{
     }
 }
 
-export default SueldosComponent;
+export default pagoComponent;
 
 const Styles = styled.div`
 

@@ -266,7 +266,7 @@ public class PagoService {
     }
 
     public PagoEntity encontrarRut(String rut){
-        return oficinaRepository.findByRut(rut);
+        return oficinaRepository.findByProveedor(rut);
     }
 
     public void eliminarData(PagoEntity reporte){

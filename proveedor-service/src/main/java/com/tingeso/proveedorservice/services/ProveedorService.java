@@ -21,7 +21,7 @@ public class ProveedorService {
     @Autowired
     RestTemplate restTemplate;
 
-    public ArrayList<ProveedorEntity> obtenerproveedors(){
+    public ArrayList<ProveedorEntity> obtenerProveedores(){
         return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
     }
 
@@ -29,8 +29,8 @@ public class ProveedorService {
         return proveedorRepository.findCategory(rut);
     }
 
-    public ProveedorEntity findByRut(String rut){
-        return proveedorRepository.findByRut(rut);
+    public ProveedorEntity findByCodigo(String codigo){
+        return proveedorRepository.findByCodigo(codigo);
     }
 
     public void guardarproveedor(ProveedorEntity proveedor){
@@ -42,11 +42,11 @@ public class ProveedorService {
     }
 
     public List<JustificativoModel> obtenerJustificativos(String rut) {
-        List<JustificativoModel> justificativos = restTemplate.getForObject("http://justificativo-service/justificativos/porproveedors/" + rut, List.class);
+        List<JustificativoModel> justificativos = restTemplate.getForObject("http://justificativo-service/justificativos/porproveedores/" + rut, List.class);
         return justificativos;
     }
     public List<AutorizacionModel> obtenerAutorizaciones(String rut) {
-        List<AutorizacionModel> autorizaciones = restTemplate.getForObject("http://autorizacion-service/autorizaciones/porproveedors/" + rut, List.class);
+        List<AutorizacionModel> autorizaciones = restTemplate.getForObject("http://autorizacion-service/autorizaciones/porproveedores/" + rut, List.class);
         return autorizaciones;
     }
 }
