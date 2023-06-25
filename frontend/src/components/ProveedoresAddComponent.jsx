@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 
 export default function ProveedoresAddComponent(props){
-
     const initialState = {
         codigo: "",
         nombre: "",
@@ -16,7 +15,7 @@ export default function ProveedoresAddComponent(props){
     };
 
     const [input, setInput] = useState(initialState);
-    
+
     const changeCodigoHandler = event => {
         setInput({ ...input, codigo: event.target.value });
         console.log(input.codigo);
@@ -34,8 +33,7 @@ export default function ProveedoresAddComponent(props){
         console.log(input.retencion);
     };
 
-    
-    const ingresarJustificativo = e => {
+    const ingresarProveedor = e => {
         e.preventDefault();
         swal({
             title: "¿Está seguro de que desea agregar este proveedor?",
@@ -55,46 +53,60 @@ export default function ProveedoresAddComponent(props){
                 ProveedorService.IngresarProveedor(proveedor).then(
                     (res) => {
                     }
-                  );
-                }
-            else{
+                );
+            } else {
                 swal({text: "Proveedor no agregado.", icon: "error"});
             }
         });
     };
 
     return(
-            
-            <Styles>
+        <Styles>
             <div className="home">
                 <NavbarComponent4 />
-                    <div className="mainclass">
-                        <div className="form1">
-                            <h1 className="text-center"><b>Proveedores</b></h1>
-                            <div className="formcontainer">
-                                <hr></hr>
-                                <div className="container">
-                                    <Form>
-                                        <Form.Group className="mb-3" controlId="rut" value = {input.rut} onChange={changeCodigoHandler}>
-                                            <Form.Label>Rut del empleado</Form.Label>
-                                            <Form.Control type="rut" placeholder="Rut del empleado en formato xx.xxx.xxx-x" />
-                                        </Form.Group>
-
-                                        <Form.Group className="mb-3" controlId="fecha" value = {input.fecha} onChange={changeNombreHandler}>
-                                            <Form.Label>Fecha del justificativo</Form.Label>
-                                            <Form.Control type="fecha" placeholder="Fecha en formato AAAA-MM-DD" />
-                                        </Form.Group>
-                                    </Form>
-                                </div>
-                                <Button className="boton" onClick={ingresarJustificativo}>Registrar Justificativo</Button>
+                <div className="mainclass">
+                    <div className="form1">
+                        <h1 className="text-center"><b>Proveedores</b></h1>
+                        <div className="formcontainer">
+                            <hr></hr>
+                            <div className="container">
+                                <Form>
+                                    <Form.Group className="mb-3" controlId="codigo" value={input.codigo} onChange={changeCodigoHandler}>
+                                        <Form.Label>Código del Proveedor</Form.Label>
+                                        <Form.Control type="codigo" placeholder="Código del Proveedor en formato numérico XXXXX" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="nombre" value={input.nombre} onChange={changeNombreHandler}>
+                                        <Form.Label>Nombre del Proveedor</Form.Label>
+                                        <Form.Control type="nombre" placeholder="Nombre del proveedor" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="categoria" value={input.categoria} onChange={changeCategoriaHandler}>
+                                        <Form.Label>Categoría</Form.Label>
+                                        <Form.Select style={{ width: "100%" }}>
+                                            <option value="">Seleccione una Categoría</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </Form.Select>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="retencion" value={input.retencion} onChange={changeRetencionHandler}>
+                                        <Form.Label>Seleccione una Retención</Form.Label>
+                                        <Form.Select style={{ width: "100%" }}>
+                                            <option value="">Seleccione una Retención</option>
+                                            <option value="Sí">Sí</option>
+                                            <option value="No">No</option>
+                                        </Form.Select>
+                                    </Form.Group>
+                                </Form>
                             </div>
+                            <Button className="boton" onClick={ingresarProveedor}>Agregar Proveedor</Button>
                         </div>
                     </div>
-                
+                </div>
             </div>
-            </Styles>
-        )
-    }
+        </Styles>
+    );
+}
 
 
 const Styles = styled.div`
@@ -136,7 +148,7 @@ const Styles = styled.div`
     padding: 36px;
 }
 
-input[type=rut], input[type=fecha] {
+input[type=codigo], input[type=fecha] {
     width: 100%;
     padding: 16px 8px;
     margin: 8px 0;

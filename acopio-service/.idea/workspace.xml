@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e791bab4-dac1-4e0c-9180-e55eb81c5171" name="Changes" comment="acopio csv update (table error fix)">
-      <change afterPath="$PROJECT_DIR$/../frontend/src/components/NavbarComponent4.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/JustificativoComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/ProveedoresAddComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/NavbarComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/NavbarComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/NavbarComponent2.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/NavbarComponent2.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/ProveedoresComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/ProveedoresComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/services/JustificativoService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/services/ProveedorService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proveedor-service/src/main/java/com/tingeso/proveedorservice/ProveedorServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../proveedor-service/src/main/java/com/tingeso/proveedorservice/ProveedorServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proveedor-service/src/main/java/com/tingeso/proveedorservice/controllers/ProveedorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../proveedor-service/src/main/java/com/tingeso/proveedorservice/controllers/ProveedorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proveedor-service/src/main/java/com/tingeso/proveedorservice/services/ProveedorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../proveedor-service/src/main/java/com/tingeso/proveedorservice/services/ProveedorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/ProveedoresAddComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/ProveedoresAddComponent.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
