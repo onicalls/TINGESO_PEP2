@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavbarComponent4 from "./NavbarComponent4";
+import NavbarComponent4 from "./NavbarProveedorAddComponent";
 import styled from "styled-components";
 import ProveedorService from "../services/ProveedorService";
 import Form from 'react-bootstrap/Form';

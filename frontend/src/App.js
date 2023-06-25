@@ -7,6 +7,7 @@ import ProveedoresComponent from './components/ProveedoresComponent';
 import SueldosComponent from './components/SueldosComponent';
 import ValorLecheComponent from "./components/ValorLecheComponent";
 import ProveedoresAddComponent from "./components/ProveedoresAddComponent";
+import ValorLecheInformationComponent from "./components/ValorLecheInformationComponent";
 function App() {
   return (
     <div>
@@ -18,7 +19,7 @@ function App() {
         <Route path= "/lista-proveedores" element={<ProveedoresComponent />} />
         <Route path= "/agregar-proveedores" element={<ProveedoresAddComponent />} />
         <Route path= "/subir-valorleche" element={<ValorLecheComponent />} />
-        <Route path= "/informacion-valorleche" element={<AcopioInformationComponent />} />
+        <Route path= "/lista-valorleche" element={<ValorLecheInformationComponent />} />
         <Route path= "/planilla-sueldos" element={<SueldosComponent />} />
 
       </Routes>

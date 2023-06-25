@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavbarComponent2 from "./NavbarComponent2";
+import NavbarAcopioAddComponent from "./NavbarAcopioAddComponent";
 import styled from "styled-components";
 
 class AcopioInformationComponent extends Component{
@@ -19,7 +19,7 @@ class AcopioInformationComponent extends Component{
     render(){
         return(
             <div className="home">
-                <NavbarComponent2 />
+                <NavbarAcopioAddComponent />
                 <Styles>
                 <h1 className="text-center"> <b>Información de acopio.csv</b></h1>
                     <div className="f">

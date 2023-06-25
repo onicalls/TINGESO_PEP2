@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import NavbarComponent2 from "./NavbarComponent2";
 import styled from "styled-components";
+import NavbarValorLecheAddComponent from "./NavbarValorLecheListComponent";
 
 class ValorLecheInformationComponent extends Component{
     constructor(props){
@@ -19,7 +19,7 @@ class ValorLecheInformationComponent extends Component{
     render(){
         return(
             <div className="home">
-                <NavbarComponent2 />
+                <NavbarValorLecheAddComponent />
                 <Styles>
                 <h1 className="text-center"> <b>Información de valorleche.csv</b></h1>
                     <div className="f">

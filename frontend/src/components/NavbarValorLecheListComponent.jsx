@@ -6,13 +6,13 @@ function NavbarComponent(){
         <>
         <NavStyle>
             <header class="header">
-                <div class="logo">
+                <div className="logo">
                     <h1>MilkStgo</h1>
                 </div>
                 <nav>
                 </nav>
                 <a class="btn" href="/"><button>Volver al menú principal</button></a>
-                <a class="btn-2" href="/informacion-acopio"><button>Ver el último acopio cargado</button></a>
+                <a class="btn-2" href="/subir-valorleche"><button>Lista de Valor Leche</button></a>
             </header>
             </NavStyle>
         </>

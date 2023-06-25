@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import NavbarComponent from "./NavbarComponent";
+import NavbarAcopioListComponent from "./NavbarAcopioListComponent";
 import FileUploadService from "../services/AcopioService";
 import styled from "styled-components";
 import swal from 'sweetalert';
@@ -45,7 +45,7 @@ class AcopioComponent extends Component{
   render() {
     return (
       <div className="home">
-        <NavbarComponent />
+        <NavbarAcopioListComponent />
         <Styles>
           <div class="f">
             <div class="container">

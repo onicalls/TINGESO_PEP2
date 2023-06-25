@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function NavbarComponent2(){
+function NavbarAcopioListComponent(){
     return(
         <>
         <NavStyle>
@@ -12,14 +12,14 @@ function NavbarComponent2(){
                 <nav>
                 </nav>
                 <a class="btn" href="/"><button>Volver al menú principal</button></a>
-                <a class="btn-2" href="/subir-acopio"><button>Cargar un nuevo acopio</button></a>
+                <a class="btn-2" href="/lista-valorleche"><button>Ver el último Valor Leche cargado</button></a>
             </header>
             </NavStyle>
         </>
     )
 }
 
-export default NavbarComponent2;
+export default NavbarAcopioListComponent;
 
 
 const NavStyle = styled.nav`

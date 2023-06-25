@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavbarComponent5 from "./NavbarComponent5";
+import NavbarComponent5 from "./NavbarProveedorListComponent";
 import styled from "styled-components";
 
 class ProveedoresComponent extends Component{
