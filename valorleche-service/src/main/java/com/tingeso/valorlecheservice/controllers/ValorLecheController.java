@@ -70,6 +70,7 @@ public class ValorLecheController {
                             @RequestParam("quincena") String quincena,
                             RedirectAttributes ms) throws FileNotFoundException, ParseException{
         valorLecheService.guardar(file);
+        System.out.println("La quincena es" + quincena);
         valorLecheService.leerCsv("valorleche.csv", year, month, quincena);
     }
 

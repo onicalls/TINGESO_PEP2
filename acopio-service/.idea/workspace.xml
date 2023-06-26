@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e791bab4-dac1-4e0c-9180-e55eb81c5171" name="Changes" comment="acopio csv update (table error fix)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/services/AcopioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tingeso/acopioservice/services/AcopioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/ValorLecheComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/ValorLecheComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/ValorLecheInformationComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/ValorLecheInformationComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/services/ValorLecheService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/services/ValorLecheService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../valorleche-service/Data.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/controllers/ValorLecheController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/controllers/ValorLecheController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/entities/ValorLecheEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/entities/ValorLecheEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/services/ValorLecheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../valorleche-service/src/main/java/com/tingeso/valorlecheservice/services/ValorLecheService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,6 +88,7 @@
       <workItem from="1687576874850" duration="233000" />
       <workItem from="1687634320397" duration="871000" />
       <workItem from="1687749933793" duration="1621000" />
+      <workItem from="1687752024503" duration="2840000" />
     </task>
     <task id="LOCAL-00001" summary="acopio csv update (table error fix)">
       <created>1687306100608</created>

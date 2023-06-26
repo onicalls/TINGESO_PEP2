@@ -61,6 +61,7 @@ public class ValorLecheService {
         valorLecheRepository.deleteAll();
         try {
             bf = new BufferedReader(new FileReader(direccion));
+            bf.readLine();
             String temp = "";
             String bfRead;
             while ((bfRead = bf.readLine()) != null) {

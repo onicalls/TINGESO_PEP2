@@ -61,9 +61,11 @@ public class AcopioService {
         acopioRepository.deleteAll();
         try {
             bf = new BufferedReader(new FileReader(direccion));
+            bf.readLine();
             String temp = "";
             String bfRead;
             while ((bfRead = bf.readLine()) != null) {
+                System.out.println(bfRead);
                 String fecha = bfRead.split(",")[0];
                 String newFecha = fecha.replaceAll("/","-");
                 guardarDataDB(newFecha, bfRead.split(",")[1], bfRead.split(",")[2], Double.parseDouble(bfRead.split(",")[3]));

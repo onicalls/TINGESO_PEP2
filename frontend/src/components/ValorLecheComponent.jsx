@@ -80,6 +80,7 @@ class ValorLecheComponent extends Component{
               <Form.Group className="mb-3" controlId="month" value={this.state.month} onChange={this.changeMonthHandler}>
                 <Form.Label>Mes:</Form.Label>
                 <Form.Control as="select" required>
+                  <option value="">Seleccione un Mes</option>
                   <option value="1">Enero</option>
                   <option value="2">Febrero</option>
                   <option value="3">Marzo</option>
@@ -98,6 +99,7 @@ class ValorLecheComponent extends Component{
               <Form.Group className="mb-3" controlId="quincena" value={this.state.quincena} onChange={this.changeQuincenaHandler}>
                 <Form.Label>Quincena:</Form.Label>
                 <Form.Control as="select" required>
+                  <option value="">Seleccione una Quincena</option>
                   <option value="Q1">Q1</option>
                   <option value="Q2">Q2</option>
                 </Form.Control>
