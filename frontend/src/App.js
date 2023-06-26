@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeComponent />} />
         <Route path= "/subir-acopio" element={<AcopioComponent />} />
-        <Route path= "/informacion-acopio" element={<AcopioInformationComponent />} />
+        <Route path= "/lista-acopio" element={<AcopioInformationComponent />} />
         <Route path= "/lista-proveedores" element={<ProveedoresComponent />} />
         <Route path= "/agregar-proveedores" element={<ProveedoresAddComponent />} />
         <Route path= "/subir-valorleche" element={<ValorLecheComponent />} />

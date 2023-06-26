@@ -36,10 +36,9 @@ class ValorLecheInformationComponent extends Component{
                             <tbody>
                                 {this.state.data.map((data) => (
                                     <tr key={data.id}>
-                                        <td>{data.fecha}</td>
-                                        <td>{data.turno}</td>
                                         <td>{data.proveedor}</td>
-                                        <td>{data.klsLeche}</td>
+                                        <td>{data.grasa}</td>
+                                        <td>{data.solidototal}</td>
                                     </tr>
                                 ))}
                             </tbody>

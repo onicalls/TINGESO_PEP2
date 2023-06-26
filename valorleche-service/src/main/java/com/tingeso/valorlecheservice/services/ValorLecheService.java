@@ -35,7 +35,7 @@ public class ValorLecheService {
         if (filename != null) {
             if ((!file.isEmpty()) && (filename.toUpperCase().equals("VALORLECHE.CSV"))) {
                 try {
-                    byte[] bytes = file.getBytes();
+                    byte[] bytes = file .getBytes();
                     Path path = Paths.get(file.getOriginalFilename());
                     Files.write(path, bytes);
                     logg.info("Archivo guardado");
@@ -55,7 +55,7 @@ public class ValorLecheService {
         return valorLecheRepository.buscarData2(rut, fecha);
     }
 
-    public void leerTxt(String direccion) {
+    public void leerCsv(String direccion, int year, int month, String quincena) {
         String texto = "";
         BufferedReader bf = null;
         valorLecheRepository.deleteAll();
@@ -64,10 +64,7 @@ public class ValorLecheService {
             String temp = "";
             String bfRead;
             while ((bfRead = bf.readLine()) != null) {
-                String[] datos = bfRead.split(",");
-                String proveedor = datos[0];
-                double grasa = Double.parseDouble(datos[1]);
-                double solidoTotal = Double.parseDouble(datos[2]);
+                guardarDataDB(bfRead.split(",")[0], Double.parseDouble(bfRead.split(",")[1]), Double.parseDouble(bfRead.split(",")[2]), formatQuincena(year, month, quincena));
                 temp = temp + "\n" + bfRead;
             }
             texto = temp;
@@ -89,16 +86,12 @@ public class ValorLecheService {
         valorLecheRepository.save(data);
     }
 
-    public void guardarDataDB(String proveedor, double grasa, double solido, double kilos, String quincena, String constancia, double diasTotalesAcopio, double promedioKilosAcopio) {
+    public void guardarDataDB(String proveedor, double grasa, double solido, String quincena) {
         ValorLecheEntity newData = new ValorLecheEntity();
         newData.setProveedor(proveedor);
         newData.setGrasa(grasa);
         newData.setSolido(solido);
-        newData.setKilos(kilos);
         newData.setQuincena(quincena);
-        newData.setConstancia(constancia);
-        newData.setDiasTotalesAcopio(diasTotalesAcopio);
-        newData.setPromedioKilosAcopio(promedioKilosAcopio);
         guardarData(newData);
     }
 
@@ -113,5 +106,10 @@ public class ValorLecheService {
 
     public void eliminarData(ArrayList<ValorLecheEntity> datas){
         valorLecheRepository.deleteAll(datas);
+    }
+
+    private String formatQuincena(int year, int month, String quincena) {
+        String monthString = String.format("%02d", month);
+        return year + "-" + monthString + "-" + quincena;
     }
 }

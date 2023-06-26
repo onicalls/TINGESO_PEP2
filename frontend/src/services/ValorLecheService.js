@@ -3,9 +3,9 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/valorleche/";
 
 class ValorLecheService{
-    
-    CargarArchivo(file){
-        return axios.post(API_URL, file);
+
+    CargarArchivo(valorleche){
+        return axios.post(API_URL, valorleche);
     }
 }
 

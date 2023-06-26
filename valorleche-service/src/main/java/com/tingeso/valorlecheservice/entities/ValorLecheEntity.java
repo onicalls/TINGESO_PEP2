@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "valorleche")
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
 public class ValorLecheEntity {
@@ -20,9 +20,5 @@ public class ValorLecheEntity {
     private String proveedor;
     private double grasa;
     private double solido;
-    private double kilos;
     private String quincena;
-    private String constancia;
-    private double diasTotalesAcopio;
-    private double promedioKilosAcopio;
 }

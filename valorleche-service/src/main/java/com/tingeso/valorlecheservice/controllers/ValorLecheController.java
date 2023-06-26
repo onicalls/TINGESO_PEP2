@@ -64,8 +64,13 @@ public class ValorLecheController {
     }
 
     @PostMapping
-    public void guardarData(@RequestParam("file") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException{
+    public void guardarData(@RequestParam("file") MultipartFile file,
+                            @RequestParam("year") int year,
+                            @RequestParam("month") int month,
+                            @RequestParam("quincena") String quincena,
+                            RedirectAttributes ms) throws FileNotFoundException, ParseException{
         valorLecheService.guardar(file);
-        valorLecheService.leerTxt("Data.txt");
+        valorLecheService.leerCsv("valorleche.csv", year, month, quincena);
     }
+
 }
