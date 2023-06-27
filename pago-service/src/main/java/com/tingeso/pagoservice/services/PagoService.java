@@ -7,6 +7,7 @@ import com.tingeso.pagoservice.models.ProveedorModel;
 import com.tingeso.pagoservice.models.PagoModel;
 import com.tingeso.pagoservice.models.AcopioModel;
 import com.tingeso.pagoservice.repositories.PagoRepository;
+import com.tingeso.pagoservice.variables.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +24,7 @@ import java.util.List;
 public class PagoService {
 
     @Autowired
-    private PagoRepository oficinaRepository;
+    private PagoRepository pagoRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -31,246 +32,240 @@ public class PagoService {
     @Autowired
     RestTemplate restTemplate;
 
-    public ProveedorModel obtenerEmpleadoPorRut(String rut){
-        ProveedorModel empleado = restTemplate.getForObject("http://empleado-service/empleado/" + rut, ProveedorModel.class);
-        System.out.println(empleado);
-        return empleado;
+    public List<PagoEntity> obtenerPagos() {
+        return pagoRepository.findAll();
     }
 
-    public AcopioModel obtenerDataEntrada(String rut, String fecha){
-        AcopioModel dataEntrada = restTemplate.getForObject("http://marcas-reloj-service/marcas-reloj/entrada/" + rut +"/"+ fecha, AcopioModel.class);
-        System.out.println(dataEntrada);
-        return dataEntrada;
+    private String formatoQuincena(int year, int month, String quincena) {
+        return String.format("%d-%02d-%s", year, month, quincena);
     }
 
-    public AcopioModel obtenerDataSalida(String rut, String fecha){
-        AcopioModel dataSalida = restTemplate.getForObject("http://marcas-reloj-service/marcas-reloj/salida/" + rut +"/"+ fecha, AcopioModel.class);
-        System.out.println(dataSalida);
-        return dataSalida;
-    }
+    public void generarPagos(int year, int month) {
 
-    public PagoModel obtenerJustificativo(String rut, String fecha){
-        PagoModel justificativo = restTemplate.getForObject("http://justificativo-service/justificativo/porempleados/" + rut +"/"+ fecha, PagoModel.class);
-        System.out.println(justificativo);
-        return justificativo;
-    }
+        for (String quincena : new String[]{"Q1", "Q2"}) {
 
-    public ValorLecheModel obtenerAutorizacion(String rut, String fecha){
-        ValorLecheModel autorizacion = restTemplate.getForObject("http://autorizacion-service/autorizacion/porempleado/" + rut +"/"+ fecha, ValorLecheModel.class);
-        System.out.println(autorizacion);
-        return autorizacion;
-    }
+            String quincenaAux = formatoQuincena(year, month, quincena);
 
-    public List<String> obtenerRutsDeData(){
-        List<String> rutsData = restTemplate.getForObject("http://marcas-reloj-service/marcas-reloj/rut", List.class);
-        System.out.println(rutsData);
-        return rutsData;
-    }
+            List<ValorLecheEntity> valorLecheEntities = valorLecheRepository.findByQuincena(quincenaAux);
 
-    public String obtenerPrimeraAsistencia(String rut){
-        String fecha = restTemplate.getForObject("http://marcas-reloj-service/marcas-reloj/primeraasistencia/" + rut, String.class);
-        System.out.println(fecha);
-        return fecha;
-    }
+            for (ValorLecheEntity valorLecheEntity : valorLecheEntities) {
 
-    public void reportePlanilla() throws ParseException {
-        oficinaRepository.deleteAll();
-        List<String>  listaRuts = obtenerRutsDeData();
-        for (String listaRut : listaRuts) {
-            calculoPlanilla(listaRut);
-        }
-    }
+                String proveedorCode = valorLecheEntity.getProveedor();
+                ProveedorModel proveedorEntity = proveedorRepository.findByCodigo(proveedorCode);
 
-    public void calculoPlanilla(String rut) throws ParseException {
-        ProveedorModel empleadoActual = obtenerEmpleadoPorRut(rut);
-        PagoEntity empleado_reporte = new PagoEntity();
-        empleado_reporte.setRut(empleadoActual.getRut());
-        empleado_reporte.setNombre_empleado(empleadoActual.getApellidos() + " " + empleadoActual.getNombres());
-        empleado_reporte.setCategoria(empleadoActual.getCategoria());
-        empleado_reporte.setDedicacion(calcularDedicacion(empleadoActual.getFecha_ingreso(), obtenerPrimeraAsistencia(empleadoActual.getRut())));
-        empleado_reporte.setSueldo_mensual(obtenerSueldo(empleadoActual.getCategoria()));
-        empleado_reporte.setBonificacion_dedicacion(calcularBonificacionDedicacion(empleado_reporte.getSueldo_mensual(), empleado_reporte.getDedicacion()));
-        empleado_reporte.setHoras_extras(calcularMontoExtra(empleadoActual.getRut(), obtenerPrimeraAsistencia(empleadoActual.getRut())));
-        empleado_reporte.setDescuentos(comprobarDescuentos(empleadoActual.getRut(), obtenerPrimeraAsistencia(empleadoActual.getRut())));
-        empleado_reporte.setSueldo_bruto(calcularSueldoBruto(empleado_reporte));
-        empleado_reporte.setPrevisional(empleado_reporte.getSueldo_bruto() * 0.1);
-        empleado_reporte.setSalud(empleado_reporte.getSueldo_bruto() * 0.08);
-        empleado_reporte.setSueldo_final(empleado_reporte.getSueldo_bruto() - empleado_reporte.getPrevisional() - empleado_reporte.getSalud());
-        oficinaRepository.save(empleado_reporte);
-    }
+                double pagoProveedor = calcularPagoProveedor(valorLecheEntity, proveedorEntity);
 
-    public double calcularSueldoBruto(PagoEntity empleado){
-        double sueldoBruto = (empleado.getSueldo_mensual() + empleado.getBonificacion_dedicacion() + empleado.getHoras_extras() - empleado.getDescuentos());
-        return Math.max(sueldoBruto, 0.0);
-    }
+                double descuentos = calcularDescuentos(proveedorCode, quincenaAux);
 
-    public double calcularMontoExtra(String rut, String fecha_inicial) throws ParseException {
-        Calendar calendario = prepararCalendario(fecha_inicial);
-        int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
-        double montoExtra = 0.0;
-        for(int day = 1; day<= lastDay; day++) {
-            calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), day);
-            if (!(comprobarFinesSemana(calendario))) {
-                String fecha_real = formatDate(calendario);
-                fecha_real = fecha_real.replaceAll("/", "-");
-                if(obtenerDataSalida(rut, fecha_real) != null){
-                    if(obtenerAutorizacion(rut,fecha_real) != null){
-                        String hora = obtenerDataSalida(rut,fecha_real).getHora();
-                        montoExtra = montoExtra + extraCategoria(obtenerEmpleadoPorRut(rut).getCategoria(), contarHoras(hora));
-                    }
-                }
+                PagoEntity pagosEntity = new PagoEntity();
+                pagosEntity.setQuincena(quincenaAux);
+                pagosEntity.setCodigoProveedor(proveedorEntity.getCodigo());
+                pagosEntity.setNombreProveedor(proveedorEntity.getNombre());
+                pagosEntity.setTotalKlsLeche(valorLecheEntity.getKilos());
+                pagosEntity.setNumDiasEnvioLeche((int) valorLecheEntity.getDiasTotalesAcopio());
+                pagosEntity.setPromedioDiarioKlsLeche(valorLecheEntity.getPromedioKilosAcopio());
+                pagosEntity.setPorcentajeVariacionLeche(calcularVariacionLeche(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()));
+                pagosEntity.setPorcentajeGrasa(valorLecheEntity.getGrasa());
+                pagosEntity.setPorcentajeVariacionGrasa(calcularVariacionGrasa(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()));
+                pagosEntity.setPorcentajeSolidosTotales(valorLecheEntity.getSolido());
+                pagosEntity.setPorcentajeVariacionST(calcularVariacionSolidos(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()));
+                pagosEntity.setPagoPorLeche(pagoProveedor);
+                pagosEntity.setPagoPorGrasa(calcularPagoGrasa(valorLecheEntity.getGrasa()));
+                pagosEntity.setPagoPorSolidosTotales(calcularPagoSolidos(valorLecheEntity.getSolido()));
+                pagosEntity.setBonificacionPorFrecuencia(calcularBonificacionFrecuencia(valorLecheEntity.getConstancia(), valorLecheEntity.getKilos(), pagoProveedor));
+                pagosEntity.setDescuentoVariacionLeche(calcularDescuentoVariacionLeche(calcularVariacionLeche(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor())) );
+                pagosEntity.setDescuentoVariacionGrasa(calcularDescuentoVariacionGrasa(calcularVariacionGrasa(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()))); // Asigna el valor correcto según tu lógica de negocio
+                pagosEntity.setDescuentoVariacionST(calcularDescuentosSolidosTotales(calcularVariacionSolidos(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()))); // Asigna el valor correcto según tu lógica de negocio
+                pagosEntity.setPagoTotal(pagoProveedor - descuentos);
+                pagosEntity.setMontoRetencion(calcularRetencion(proveedorEntity.getCodigo(), pagoProveedor - descuentos));
+                pagosEntity.setMontoFinal(pagosEntity.getPagoTotal() - pagosEntity.getMontoRetencion());
+
+                pagoRepository.save(pagosEntity);
             }
         }
-        return montoExtra;
     }
 
-    public Integer calcularDedicacion(String fecha_inicio, String fecha_temporal) throws ParseException {
-        Calendar calendario = prepararCalendario(fecha_inicio);
-        Calendar calendario2 = prepararCalendario(fecha_temporal);
-        calendario2.set(calendario2.get(Calendar.YEAR), calendario2.get(Calendar.MONTH), calendario2.getActualMaximum(Calendar.DAY_OF_MONTH));
-        Date date1 = calendario.getTime();
-        Date date2 =calendario2.getTime();
-        return Math.toIntExact(((date2.getTime() - date1.getTime()) / 86400000 / 365));
+    public double calcularPagoProveedor(ValorLecheEntity valorLecheEntity, ProveedorEntity proveedorEntity) {
+        double kilosLeche = valorLecheEntity.getKilos();
+        double porcentajeGrasa = valorLecheEntity.getGrasa();
+        double porcentajeSolidos = valorLecheEntity.getSolido();
+        String constancia = valorLecheEntity.getConstancia();
+
+        String categoria = proveedorEntity.getCategoria();
+
+        double pagoKiloLeche = calcularPagoKiloLeche(categoria);
+        double pagoGrasa = calcularPagoGrasa(porcentajeGrasa);
+        double pagoSolidos = calcularPagoSolidos(porcentajeSolidos);
+        double bonificacionFrecuencia = calcularBonificacionFrecuencia(constancia, kilosLeche, pagoKiloLeche);
+
+        return calcularPagoTotal(kilosLeche, pagoKiloLeche, pagoGrasa, pagoSolidos, bonificacionFrecuencia);
     }
 
-    public double calcularBonificacionDedicacion(Integer sueldo_mensual, Integer dedicacion){
-        if(sueldo_mensual < 0){
-            return 0.0;
+    private double calcularPagoKiloLeche(String categoria) {
+        return switch (categoria) {
+            case "A" -> Categorias.CATEGORIA_A;
+            case "B" -> Categorias.CATEGORIA_B;
+            case "C" -> Categorias.CATEGORIA_C;
+            case "D" -> Categorias.CATEGORIA_D;
+            default -> throw new IllegalArgumentException("Invalid categoria: " + categoria);
+        };
+    }
+
+
+    private double calcularPagoGrasa(double porcentajeGrasa) {
+        double pagoGrasa;
+        if (porcentajeGrasa <= PorcentajeGrasa.CASO_1) {
+            pagoGrasa = PorcentajeGrasa.PAGO_CASO_1;
+        } else if (porcentajeGrasa <= PorcentajeGrasa.CASO_2) {
+            pagoGrasa = PorcentajeGrasa.PAGO_CASO_2;
+        } else {
+            pagoGrasa = PorcentajeGrasa.PAGO_CASO_EXTREMO;
         }
-        if((dedicacion >= 5) && (dedicacion < 10)){
-            return (sueldo_mensual * 0.05);
-        } else if((dedicacion >= 10) && (dedicacion < 15)){
-            return (sueldo_mensual * 0.08);
-        } else if((dedicacion >= 15) && (dedicacion < 20)){
-            return (sueldo_mensual * 0.11);
-        } else if((dedicacion >= 20) && (dedicacion < 25)){
-            return (sueldo_mensual * 0.14);
-        } else if(dedicacion >= 25){
-            return (sueldo_mensual * 0.17);
-        } else{
-            return 0.0;
-        }
+        return pagoGrasa;
     }
 
-    public double extraCategoria(String categoria, Integer contador) {
-        switch (categoria) {
-            case "A":
-                return (25000 * contador);
-            case "B":
-                return (20000 * contador);
-            case "C":
-                return (10000 * contador);
-            default:
-                return 0.0;
+    private double calcularPagoSolidos(double porcentajeSolidos) {
+        double pagoSolidos;
+        if (porcentajeSolidos <= PorcentajeSolidosTotales.CASO_1) {
+            pagoSolidos = PorcentajeSolidosTotales.PAGO_CASO_1;
+        } else if (porcentajeSolidos <= PorcentajeSolidosTotales.CASO_2) {
+            pagoSolidos = PorcentajeSolidosTotales.PAGO_CASO_2;
+        } else if (porcentajeSolidos <= PorcentajeSolidosTotales.CASO_3) {
+            pagoSolidos = PorcentajeSolidosTotales.PAGO_CASO_3;
+        } else {
+            pagoSolidos = PorcentajeSolidosTotales.PAGO_CASO_EXTREMO;
         }
+        return pagoSolidos;
+    }
+
+    private double calcularBonificacionFrecuencia(String constancia, double kilosLeche, double pagoKiloLeche) {
+        double bonificacionFrecuencia;
+        if (constancia == null) {
+            constancia = "NO";
+        }
+        bonificacionFrecuencia = switch (constancia) {
+            case "M" -> BonoFrecuencia.MANANA * kilosLeche * pagoKiloLeche;
+            case "T" -> BonoFrecuencia.TARDE * kilosLeche * pagoKiloLeche;
+            case "MT" -> BonoFrecuencia.MANANA_Y_TARDE * kilosLeche * pagoKiloLeche;
+            default -> 0;
+        };
+        return bonificacionFrecuencia;
     }
 
 
-    public double comprobarDescuentos(String rut, String fecha) throws ParseException {
-        Calendar calendario = prepararCalendario(fecha);
-        int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
-        double descuentos = 0.0;
-        for(int day = 1; day<= lastDay; day++) {
-            calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), day);
-            if (!(comprobarFinesSemana(calendario))){
-                String fecha_real = formatDate(calendario);
-                fecha_real = fecha_real.replaceAll("/", "-");
-                if (obtenerDataEntrada(rut, fecha_real) == null){ // NO hay registro del rut y fecha en DATA TXT
-                    descuentos = comprobarJustificativo(rut, fecha_real, descuentos);
-                }
-                else{
-                    String hora_string = obtenerDataEntrada(rut, fecha_real).getHora();
-                    descuentos = comprobarHoras(hora_string, rut, descuentos);
-                    if(comprobarAtrasado(hora_string)){
-                        descuentos = comprobarJustificativo(rut, fecha_real, descuentos);
-                    }
-                }
+    private double calcularPagoTotal(double kilosLeche, double pagoKiloLeche, double pagoGrasa, double pagoSolidos, double bonificacionFrecuencia) {
+        return kilosLeche * (pagoKiloLeche + pagoGrasa + pagoSolidos) + bonificacionFrecuencia;
+    }
+
+    public double calcularDescuentos(String proveedor, String quincenaActual) {
+
+        ValorLecheEntity valorLecheActual = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaActual);
+
+        double variacionKilos = calcularVariacionLeche(valorLecheActual, quincenaActual, proveedor);
+        double variacionGrasa = calcularVariacionGrasa(valorLecheActual, quincenaActual, proveedor);
+        double variacionSolidos = calcularVariacionSolidos(valorLecheActual, quincenaActual, proveedor);
+
+        double dctoVariacionLeche = calcularDescuentoVariacionLeche(variacionKilos);
+        double dctoVariacionGrasa = calcularDescuentoVariacionGrasa(variacionGrasa);
+        double dctoVariacionST = calcularDescuentosSolidosTotales(variacionSolidos);
+
+        return dctoVariacionLeche + dctoVariacionGrasa + dctoVariacionST;
+    }
+
+    private double calcularVariacionLeche(ValorLecheEntity valorLecheActual, String quincenaActual, String proveedor) {
+        String quincenaAnterior = calcularQuincenaAnterior(quincenaActual);
+        ValorLecheEntity valorLecheAnterior = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaAnterior);
+        double kilosAnterior = (valorLecheAnterior != null) ? valorLecheAnterior.getKilos() : 0.0;
+        if (kilosAnterior == 0.0) {return 0.0;}
+        return (kilosAnterior - valorLecheActual.getKilos()) / kilosAnterior * 100;
+    }
+
+    private double calcularVariacionGrasa(ValorLecheEntity valorLecheActual, String quincenaActual, String proveedor) {
+        String quincenaAnterior = calcularQuincenaAnterior(quincenaActual);
+        ValorLecheEntity valorLecheAnterior = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaAnterior);
+        double grasaAnterior = (valorLecheAnterior != null) ? valorLecheAnterior.getGrasa() : 0.0;
+        if (grasaAnterior == 0.0) {return 0.0;}
+        return (grasaAnterior - valorLecheActual.getGrasa()) / grasaAnterior * 100;
+    }
+
+    private double calcularVariacionSolidos(ValorLecheEntity valorLecheActual, String quincenaActual, String proveedor) {
+        String quincenaAnterior = calcularQuincenaAnterior(quincenaActual);
+        ValorLecheEntity valorLecheAnterior = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaAnterior);
+        double solidosAnterior = (valorLecheAnterior != null) ? valorLecheAnterior.getSolido() : 0.0;
+        if (solidosAnterior == 0.0) {return 0.0;}
+        return (solidosAnterior - valorLecheActual.getSolido()) / solidosAnterior * 100;
+    }
+
+    private String calcularQuincenaAnterior(String quincenaActual) {
+        String[] parts = quincenaActual.split("-");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        String quincena = parts[2];
+
+        if (quincena.equals("Q2")) {
+            // Si es la segunda quincena del mes, la quincena anterior es la primera quincena del mismo mes.
+            return year + "-" + String.format("%02d", month) + "-Q1";
+        } else if (quincena.equals("Q1")) {
+            // Si es la primera quincena del mes y el mes es enero, la quincena anterior es la segunda quincena del año anterior.
+            if (month == 1) {
+                return (year - 1) + "-12-Q2";
+            } else {
+                // Si no es enero, la quincena anterior es la segunda quincena del mes anterior.
+                return year + "-" + String.format("%02d", month - 1) + "-Q2";
             }
-        }
-        return descuentos;
-    }
-
-    public double comprobarJustificativo(String rut, String fecha, double descuentos){
-        int sueldo_mensual = obtenerSueldo(obtenerEmpleadoPorRut(rut).getCategoria());
-        if (obtenerJustificativo(rut, fecha) != null) {
-            return descuentos;
-        } else{
-            descuentos = descuentos + (sueldo_mensual * 0.15);
-            return descuentos;
+        } else {
+            throw new IllegalArgumentException("Invalid quincena: " + quincena);
         }
     }
 
-    public Integer obtenerSueldo(String categoria){
-        if(categoria.equals("A")){
-            return 1700000;
-        } else if (categoria.equals("B")) {
-            return 1200000;
+
+    private double calcularDescuentoVariacionLeche(double variacion) {
+        if (variacion <= VariacionKLSLeche.CASO_1) {
+            return VariacionKLSLeche.PAGO_CASO_1;
+        } else if (variacion <= VariacionKLSLeche.CASO_2) {
+            return VariacionKLSLeche.PAGO_CASO_2;
+        } else if (variacion <= VariacionKLSLeche.CASO_3) {
+            return VariacionKLSLeche.PAGO_CASO_3;
+        } else {
+            return VariacionKLSLeche.PAGO_CASO_EXTREMO;
         }
-        else{
-            return 800000;
+    }
+
+    private double calcularDescuentoVariacionGrasa(double variacion) {
+        if (variacion <= VariacionGrasa.CASO_1) {
+            return VariacionGrasa.PAGO_CASO_1;
+        } else if (variacion <= VariacionGrasa.CASO_2) {
+            return VariacionGrasa.PAGO_CASO_2;
+        } else if (variacion <= VariacionGrasa.CASO_3) {
+            return VariacionGrasa.PAGO_CASO_3;
+        } else {
+            return VariacionGrasa.PAGO_CASO_EXTREMO;
         }
     }
 
-    public Boolean comprobarAtrasado(String hora_string) throws ParseException {
-        SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
-        Date hora = dt.parse(hora_string);
-        return hora.after(dt.parse("09:10"));
-    }
-
-
-    public Integer contarHoras(String hora_string) throws ParseException {
-        SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
-        Date hora = dt.parse(hora_string);
-        int contador = 0;
-        if (hora.after(dt.parse("18:00"))) {
-            contador = (int) ((hora.getTime() - dt.parse("18:00").getTime()) / (60 * 60 * 1000));
+    private double calcularDescuentosSolidosTotales(double variacion) {
+        if (variacion <= VariacionSolidosTotales.CASO_1) {
+            return VariacionSolidosTotales.PAGO_CASO_1;
+        } else if (variacion <= VariacionSolidosTotales.CASO_2) {
+            return VariacionSolidosTotales.PAGO_CASO_2;
+        } else if (variacion <= VariacionSolidosTotales.CASO_3) {
+            return VariacionSolidosTotales.PAGO_CASO_3;
+        } else {
+            return VariacionSolidosTotales.PAGO_CASO_EXTREMO;
         }
-        return contador;
     }
 
-    public ArrayList<PagoEntity> obtenerData(){
-        return (ArrayList<PagoEntity>) oficinaRepository.findAll();
-    }
-
-    public Calendar prepararCalendario(String fecha) throws ParseException {
-        fecha = fecha.replaceAll("-", "/");
-        Calendar calendario = Calendar.getInstance();
-        DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
-        Date real_fecha = date1.parse(fecha);
-        calendario.setTime(real_fecha);
-        return calendario;
-    }
-
-    public Boolean comprobarFinesSemana(Calendar calendario){
-        int dia = calendario.get(Calendar.DAY_OF_WEEK);
-        return dia == Calendar.SATURDAY || dia == Calendar.SUNDAY;
-    }
-
-    public String formatDate(Calendar calendario){
-        DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
-        return date1.format(calendario.getTime());
-    }
-
-    public double comprobarHoras(String hora_string,String rut, double descuentos) throws ParseException {
-        int sueldo_mensual = obtenerSueldo(obtenerEmpleadoPorRut(rut).getCategoria());
-        SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
-        Date hora = dt.parse(hora_string);
-        if ((hora.after(dt.parse("08:10"))) && (hora.before(dt.parse("08:25")))) {
-            descuentos = descuentos + (sueldo_mensual * 0.01);
-        } else if ((hora.after(dt.parse("08:25"))) && (hora.before(dt.parse("08:45")))) {
-            descuentos = descuentos + (sueldo_mensual * 0.03);
-        } else if ((hora.after(dt.parse("08:45"))) && (hora.before(dt.parse("09:10")))) {
-            descuentos = descuentos + (sueldo_mensual * 0.06);
+    private double calcularRetencion(String proveedor, double pagoTotal) {
+        if (getRetencionForProveedor(proveedor) && pagoTotal > Retenciones.MONTO_MAYOR) {
+            return Retenciones.IMPUESTO * pagoTotal;
+        } else {
+            return 0;
         }
-        return descuentos;
     }
 
-    public PagoEntity encontrarRut(String rut){
-        return oficinaRepository.findByProveedor(rut);
-    }
-
-    public void eliminarData(PagoEntity reporte){
-        oficinaRepository.delete(reporte);
+    private boolean getRetencionForProveedor(String proveedor) {
+        ProveedorEntity proveedorEntity = proveedorRepository.findByCodigo(proveedor);
+        return proveedorEntity != null && proveedorEntity.isRetencion();
     }
 
 }

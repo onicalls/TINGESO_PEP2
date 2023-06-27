@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table (name = "pago")
@@ -16,17 +14,27 @@ import javax.persistence.Table;
 @Data
 public class PagoEntity {
     @Id
-    @NotNull
-    private String rut;
-    private String nombre_empleado;
-    private String categoria;
-    private Integer dedicacion;
-    private Integer sueldo_mensual;
-    private double bonificacion_dedicacion;
-    private double horas_extras;
-    private double descuentos;
-    private double sueldo_bruto;
-    private double previsional;
-    private double salud;
-    private double sueldo_final;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String quincena;
+    private String codigoProveedor;
+    private String nombreProveedor;
+    private double totalKlsLeche;
+    private int numDiasEnvioLeche;
+    private double promedioDiarioKlsLeche;
+    private double porcentajeVariacionLeche;
+    private double porcentajeGrasa;
+    private double porcentajeVariacionGrasa;
+    private double porcentajeSolidosTotales;
+    private double porcentajeVariacionST;
+    private double pagoPorLeche;
+    private double pagoPorGrasa;
+    private double pagoPorSolidosTotales;
+    private double bonificacionPorFrecuencia;
+    private double descuentoVariacionLeche;
+    private double descuentoVariacionGrasa;
+    private double descuentoVariacionST;
+    private double pagoTotal;
+    private double montoRetencion;
+    private double montoFinal;
 }

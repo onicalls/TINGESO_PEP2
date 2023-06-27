@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValorLecheModel {
-    private String rut;
-    private String fecha;
+    private String proveedor;
+    private double grasa;
+    private double solido;
+    private double kilos;
+    private String quincena;
 }
