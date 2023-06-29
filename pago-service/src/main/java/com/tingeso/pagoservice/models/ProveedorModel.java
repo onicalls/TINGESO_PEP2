@@ -12,4 +12,8 @@ public class ProveedorModel {
     private String nombre;
     private String categoria;
     private String retencion;
+
+    public boolean isRetencion() {
+        return "Sí".equals(this.retencion);
+    }
 }

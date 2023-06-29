@@ -38,14 +38,6 @@ public class ValorLecheController {
         return ResponseEntity.ok(ruts);
     }
 
-    @GetMapping("/entrada/{rut}/{fecha}")
-    public ResponseEntity<ValorLecheEntity> obtenerHoraEntradaPorRut(
-            @PathVariable("rut") String rut, @PathVariable("fecha") String fecha)
-    {
-        ValorLecheEntity marca_entrada = valorLecheService.obtenerEspecifico(rut, fecha);
-        return ResponseEntity.ok(marca_entrada);
-    }
-
     @GetMapping("/primeraasistencia/{rut}")
     public ResponseEntity<String> obtenerPrimeraAsistencia(@PathVariable("rut") String rut){
      String fecha = valorLecheService.obtenerFechaRut(rut);

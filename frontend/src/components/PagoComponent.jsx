@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import NavbarComponent3 from "./NavbarComponent3";
+import PagoService from "../services/PagoService";
 import styled from "styled-components";
+import swal from 'sweetalert';
 
 class PagoComponent extends Component{
     constructor(props) {
@@ -10,7 +13,7 @@ class PagoComponent extends Component{
           pago: [],
           year: "",
           month: "",
-          quincena: ""
+          quin: ""
         };
     }
 
@@ -25,8 +28,8 @@ class PagoComponent extends Component{
       };
     
       changeQuincenaHandler = (event) => {
-        this.setState({ quincena: event.target.value });
-        console.log(this.state.quincena);
+        this.setState({ quin: event.target.value });
+        console.log(this.state.quin);
       };
 
     componentDidMount() {
@@ -35,7 +38,7 @@ class PagoComponent extends Component{
           .then((data) => this.setState({ pago: data }));
       }
 
-    ingresarProveedor = e => {
+    calcularPlantilla = e => {
         e.preventDefault();
         swal({
             title: "¿Está seguro de que desea calcular esta planilla?",
@@ -45,12 +48,12 @@ class PagoComponent extends Component{
         }).then(respuesta=>{
             if(respuesta){
                 swal("Platilla calculada!", {icon: "success", timer: "3000"});
-                let datos = { codigo: this.state.year, nombre: this.state.month, categoria: this.state.quincena};
+                let datos = { codigo: this.state.year, nombre: this.state.month, categoria: this.state.quin};
                 console.log(this.state.year)
                 console.log(this.state.month)
-                console.log(this.state.quincena)
+                console.log(this.state.quin)
                 console.log("datos => " + JSON.stringify(datos));
-                ProveedorService.getSueldos(datos).then(
+                PagoService.getSueldos(datos).then(
                     (res) => {
                     }
                 );
@@ -90,7 +93,7 @@ class PagoComponent extends Component{
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="quincena" value={this.state.quincena} onChange={this.changeQuincenaHandler}>
+                    <Form.Group className="mb-3" controlId="quin" value={this.state.quin} onChange={this.changeQuincenaHandler}>
                         <Form.Label>Quincena:</Form.Label>
                         <Form.Control as="select" required>
                         <option value="">Seleccione una Quincena</option>
@@ -98,7 +101,7 @@ class PagoComponent extends Component{
                         <option value="Q2">Q2</option>
                         </Form.Control>
                     </Form.Group>
-                    <Button varian="primary" onClick={this.onFileUpload}>
+                    <Button varian="primary" onClick={this.calcularPlantilla}>
                     Calcular Planilla</Button>
                     <div className="f">
                         

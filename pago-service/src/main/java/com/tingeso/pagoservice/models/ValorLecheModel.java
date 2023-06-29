@@ -8,9 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValorLecheModel {
+    private Long id;
     private String proveedor;
     private double grasa;
     private double solido;
-    private double kilos;
     private String quincena;
+    private double kilos;
+    private String constancia;
+    private double diasTotalesAcopio;
+    private double promedioKilosAcopio;
 }

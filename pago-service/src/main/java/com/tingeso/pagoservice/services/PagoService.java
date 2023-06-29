@@ -4,20 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tingeso.pagoservice.entities.PagoEntity;
 import com.tingeso.pagoservice.models.ValorLecheModel;
 import com.tingeso.pagoservice.models.ProveedorModel;
-import com.tingeso.pagoservice.models.PagoModel;
-import com.tingeso.pagoservice.models.AcopioModel;
 import com.tingeso.pagoservice.repositories.PagoRepository;
 import com.tingeso.pagoservice.variables.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,18 +32,32 @@ public class PagoService {
         return String.format("%d-%02d-%s", year, month, quincena);
     }
 
-    public void generarPagos(int year, int month) {
+    public List<ValorLecheModel> obtenerListaPorQuincena(String quincena){
+        List<ValorLecheModel> listaValorLecheQuincena = restTemplate.getForObject("http://valorleche-service/empleado/" + quincena, List.class);
+        System.out.println(listaValorLecheQuincena);
+        return listaValorLecheQuincena;
+    }
 
-        for (String quincena : new String[]{"Q1", "Q2"}) {
+    public ProveedorModel obtenerPorCodigo(String proveedorCode){
+        ProveedorModel proveedorModel = restTemplate.getForObject("http://proveedor-service/" + proveedorCode, ProveedorModel.class);
+        System.out.println(proveedorModel);
+        return proveedorModel;
+    }
+
+    public void generarPagos(int year, int month, String quin) {
+
+        String[] quincenas = new String[]{"Q1", "Q2"};
+
+        for (String quincena : quincenas) {
 
             String quincenaAux = formatoQuincena(year, month, quincena);
 
-            List<ValorLecheEntity> valorLecheEntities = valorLecheRepository.findByQuincena(quincenaAux);
+            List<ValorLecheModel> valorLecheEntities = obtenerListaPorQuincena(quincenaAux);
 
-            for (ValorLecheEntity valorLecheEntity : valorLecheEntities) {
+            for (ValorLecheModel valorLecheEntity : valorLecheEntities) {
 
                 String proveedorCode = valorLecheEntity.getProveedor();
-                ProveedorModel proveedorEntity = proveedorRepository.findByCodigo(proveedorCode);
+                ProveedorModel proveedorEntity = obtenerPorCodigo(proveedorCode);
 
                 double pagoProveedor = calcularPagoProveedor(valorLecheEntity, proveedorEntity);
 
@@ -80,12 +86,15 @@ public class PagoService {
                 pagosEntity.setMontoRetencion(calcularRetencion(proveedorEntity.getCodigo(), pagoProveedor - descuentos));
                 pagosEntity.setMontoFinal(pagosEntity.getPagoTotal() - pagosEntity.getMontoRetencion());
 
-                pagoRepository.save(pagosEntity);
+                if (quincenaAux.equals(quin)) {
+                    pagoRepository.save(pagosEntity);
+                }
             }
         }
     }
 
-    public double calcularPagoProveedor(ValorLecheEntity valorLecheEntity, ProveedorEntity proveedorEntity) {
+
+    public double calcularPagoProveedor(ValorLecheModel valorLecheEntity, ProveedorModel proveedorEntity) {
         double kilosLeche = valorLecheEntity.getKilos();
         double porcentajeGrasa = valorLecheEntity.getGrasa();
         double porcentajeSolidos = valorLecheEntity.getSolido();
@@ -157,9 +166,15 @@ public class PagoService {
         return kilosLeche * (pagoKiloLeche + pagoGrasa + pagoSolidos) + bonificacionFrecuencia;
     }
 
+    public ValorLecheModel findByProveedorAndQuincena(String proveedor, String quincenaActual){
+        ValorLecheModel valorLecheModel = restTemplate.getForObject("http://proveedor-service/" + proveedor + "/" + quincenaActual, ValorLecheModel.class);
+        System.out.println(valorLecheModel);
+        return valorLecheModel;
+    }
+
     public double calcularDescuentos(String proveedor, String quincenaActual) {
 
-        ValorLecheEntity valorLecheActual = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaActual);
+        ValorLecheModel valorLecheActual = findByProveedorAndQuincena(proveedor, quincenaActual);
 
         double variacionKilos = calcularVariacionLeche(valorLecheActual, quincenaActual, proveedor);
         double variacionGrasa = calcularVariacionGrasa(valorLecheActual, quincenaActual, proveedor);
@@ -172,25 +187,25 @@ public class PagoService {
         return dctoVariacionLeche + dctoVariacionGrasa + dctoVariacionST;
     }
 
-    private double calcularVariacionLeche(ValorLecheEntity valorLecheActual, String quincenaActual, String proveedor) {
+    private double calcularVariacionLeche(ValorLecheModel valorLecheActual, String quincenaActual, String proveedor) {
         String quincenaAnterior = calcularQuincenaAnterior(quincenaActual);
-        ValorLecheEntity valorLecheAnterior = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaAnterior);
+        ValorLecheModel valorLecheAnterior = findByProveedorAndQuincena(proveedor, quincenaAnterior);
         double kilosAnterior = (valorLecheAnterior != null) ? valorLecheAnterior.getKilos() : 0.0;
         if (kilosAnterior == 0.0) {return 0.0;}
         return (kilosAnterior - valorLecheActual.getKilos()) / kilosAnterior * 100;
     }
 
-    private double calcularVariacionGrasa(ValorLecheEntity valorLecheActual, String quincenaActual, String proveedor) {
+    private double calcularVariacionGrasa(ValorLecheModel valorLecheActual, String quincenaActual, String proveedor) {
         String quincenaAnterior = calcularQuincenaAnterior(quincenaActual);
-        ValorLecheEntity valorLecheAnterior = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaAnterior);
+        ValorLecheModel valorLecheAnterior = findByProveedorAndQuincena(proveedor, quincenaAnterior);
         double grasaAnterior = (valorLecheAnterior != null) ? valorLecheAnterior.getGrasa() : 0.0;
         if (grasaAnterior == 0.0) {return 0.0;}
         return (grasaAnterior - valorLecheActual.getGrasa()) / grasaAnterior * 100;
     }
 
-    private double calcularVariacionSolidos(ValorLecheEntity valorLecheActual, String quincenaActual, String proveedor) {
+    private double calcularVariacionSolidos(ValorLecheModel valorLecheActual, String quincenaActual, String proveedor) {
         String quincenaAnterior = calcularQuincenaAnterior(quincenaActual);
-        ValorLecheEntity valorLecheAnterior = valorLecheRepository.findByProveedorAndQuincena(proveedor, quincenaAnterior);
+        ValorLecheModel valorLecheAnterior = findByProveedorAndQuincena(proveedor, quincenaAnterior);
         double solidosAnterior = (valorLecheAnterior != null) ? valorLecheAnterior.getSolido() : 0.0;
         if (solidosAnterior == 0.0) {return 0.0;}
         return (solidosAnterior - valorLecheActual.getSolido()) / solidosAnterior * 100;
@@ -264,7 +279,7 @@ public class PagoService {
     }
 
     private boolean getRetencionForProveedor(String proveedor) {
-        ProveedorEntity proveedorEntity = proveedorRepository.findByCodigo(proveedor);
+        ProveedorModel proveedorEntity = obtenerPorCodigo(proveedor);
         return proveedorEntity != null && proveedorEntity.isRetencion();
     }
 

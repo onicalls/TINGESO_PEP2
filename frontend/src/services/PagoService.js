@@ -4,8 +4,8 @@ const API_URL = "http://localhost:8080/pago";
 
 class PagoService {
 
-    getSueldos() {
-        return axios.post(API_URL);
+    getSueldos(datos) {
+        return axios.post(API_URL, datos);
     }
 }
 

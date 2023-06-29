@@ -21,4 +21,8 @@ public class ValorLecheEntity {
     private double grasa;
     private double solido;
     private String quincena;
+    private double kilos;
+    private String constancia;
+    private double diasTotalesAcopio;
+    private double promedioKilosAcopio;
 }

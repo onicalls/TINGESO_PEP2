@@ -2,10 +2,12 @@ package com.tingeso.valorlecheservice.services;
 
 
 import com.tingeso.valorlecheservice.entities.ValorLecheEntity;
+import com.tingeso.valorlecheservice.models.AcopioModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import com.tingeso.valorlecheservice.repositories.ValorLecheRepository;
 
@@ -15,14 +17,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ValorLecheService {
 
     @Autowired
     private ValorLecheRepository valorLecheRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     private final Logger logg = LoggerFactory.getLogger(ValorLecheService.class);
 
@@ -47,9 +56,6 @@ public class ValorLecheService {
         }
     }
 
-    public ValorLecheEntity obtenerEspecifico(String rut, String fecha){
-        return valorLecheRepository.buscarData(rut, fecha);
-    }
 
     public ValorLecheEntity obtenerEspecifico2(String rut, String fecha){
         return valorLecheRepository.buscarData2(rut, fecha);
@@ -112,5 +118,96 @@ public class ValorLecheService {
     private String formatQuincena(int year, int month, String quincena) {
         String monthString = String.format("%02d", month);
         return year + "-" + monthString + "-" + quincena;
+    }
+
+    public List<AcopioModel> acopioEnRango(LocalDate startDate, LocalDate endDate){
+        List<AcopioModel> acopios = restTemplate.getForObject("http://acopio-service/acopio/" + startDate.toString() +"/"+ endDate.toString(), List.class);
+        System.out.println(acopios);
+        return acopios;
+    }
+
+    public void calcularKilosTotalesQuincena(int year, int month, String quincena) {
+        LocalDate startDate;
+        LocalDate endDate;
+
+        if (quincena.equals("Q1")) {
+            startDate = LocalDate.of(year, month, 1);
+            endDate = LocalDate.of(year, month, 15);
+        } else if (quincena.equals("Q2")) {
+            YearMonth yearMonthObject = YearMonth.of(year, month);
+            int daysInMonth = yearMonthObject.lengthOfMonth();
+            startDate = LocalDate.of(year, month, 16);
+            endDate = LocalDate.of(year, month, daysInMonth);
+        } else {
+            throw new IllegalArgumentException("Invalid quincena: " + quincena);
+        }
+
+        List<AcopioModel> acopioEntities = acopioEnRango(startDate, endDate);
+
+        Map<String, ProviderData> providerDataMap = new HashMap<>();
+        for (AcopioModel acopio : acopioEntities) {
+            String provider = acopio.getProveedor();
+            ProviderData providerData = providerDataMap.getOrDefault(provider, new ProviderData());
+            providerData.addKilos(acopio.getKlsLeche());
+            providerData.addDelivery(acopio.getTurno());
+            providerDataMap.put(provider, providerData);
+        }
+
+        // Save or update ValorLecheEntity for each provider
+        for (Map.Entry<String, ProviderData> entry : providerDataMap.entrySet()) {
+            String provider = entry.getKey();
+            ProviderData providerData = entry.getValue();
+
+            ValorLecheEntity valorLeche = valorLecheRepository.findByProveedorAndQuincena(provider, formatQuincena(year, month, quincena));
+            if (valorLeche == null) {
+                valorLeche = new ValorLecheEntity();
+                valorLeche.setProveedor(provider);
+                valorLeche.setQuincena(formatQuincena(year, month, quincena));
+            }
+
+            valorLeche.setKilos(providerData.getTotalKilos());
+            valorLeche.setDiasTotalesAcopio(providerData.totalDeliveries);
+            valorLeche.setPromedioKilosAcopio(providerData.totalKilos / providerData.totalDeliveries);
+            valorLeche.setConstancia(providerData.getFrecuencia());
+
+            valorLecheRepository.save(valorLeche);
+        }
+    }
+
+    private static class ProviderData {
+        private double totalKilos = 0;
+        private int totalDeliveries = 0;
+        private int morningDeliveries = 0;
+        private int afternoonDeliveries = 0;
+
+        public void addDelivery(String turno) {
+            totalDeliveries++;
+            if (turno.equals("M")) {
+                morningDeliveries++;
+            } else if (turno.equals("T")) {
+                afternoonDeliveries++;
+            }
+        }
+
+        public String getFrecuencia() {
+            if (totalDeliveries >= 10) {
+                if (morningDeliveries > 0 && afternoonDeliveries > 0) {
+                    return "MT";
+                } else if (morningDeliveries > 0) {
+                    return "M";
+                } else if (afternoonDeliveries > 0) {
+                    return "T";
+                }
+            }
+            return "NO";
+        }
+
+        void addKilos(double kilos) {
+            this.totalKilos += kilos;
+        }
+
+        double getTotalKilos() {
+            return totalKilos;
+        }
     }
 }

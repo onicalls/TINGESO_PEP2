@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface AcopioRepository extends JpaRepository <AcopioEntity, Integer>{
     @Query(value = "select * from acopio as e where e.proveedor = :proveedor and e.turno =:turno and e.klsLeche =:klsLeche and e.fecha =:fecha limit 1",
             nativeQuery = true)
     AcopioEntity buscarData(@Param("proveedor") String proveedor, @Param("turno") String turno, @Param("klsLeche") Double klsLeche, @Param("fecha") String fecha);
+
+    @Query(value = "SELECT * FROM acopio WHERE fecha BETWEEN :start AND :end", nativeQuery = true)
+    List<AcopioEntity> findAcopioByDateBetween(@Param("start") LocalDate start, @Param("end") LocalDate end);
 
     @Query(value = "select distinct proveedor from acopio", nativeQuery = true)
     List<String> findDistinctProveedor();
