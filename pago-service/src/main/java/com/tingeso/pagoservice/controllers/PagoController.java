@@ -18,11 +18,11 @@ public class PagoController {
     PagoService pagoService;
 
     @GetMapping
-    public ResponseEntity<List<PagoEntity>> obtenerPago(){
-        List<PagoEntity> proveedors = pagoService.obtenerPagos();
-        if(proveedors.isEmpty())
+    public ResponseEntity<List<PagoEntity>> obtenerData(){
+        List<PagoEntity> data = pagoService.obtenerPagos();
+        if(data.isEmpty())
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(proveedors);
+        return ResponseEntity.ok(data);
     }
 
     @PostMapping

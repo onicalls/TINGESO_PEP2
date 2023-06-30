@@ -24,12 +24,12 @@ public class ProveedorController {
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(proveedors);
     }
-    @GetMapping("/{rut}")
-    public ResponseEntity<ProveedorEntity> obtenerPorRut(@PathVariable("rut") String rut){
-        ProveedorEntity proveedor = proveedorService.findByCodigo(rut);
-        if(proveedor == null)
+    @GetMapping("/{proveedor}")
+    public ResponseEntity<ProveedorEntity> obtenerPorCodigo(@PathVariable("proveedor") String proveedor){
+        ProveedorEntity proveedorListo = proveedorService.findByCodigo(proveedor);
+        if(proveedorListo == null)
             return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(proveedor);
+        return ResponseEntity.ok(proveedorListo);
     }
 
     @PostMapping

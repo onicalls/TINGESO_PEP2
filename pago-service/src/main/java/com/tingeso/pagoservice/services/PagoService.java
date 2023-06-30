@@ -7,6 +7,9 @@ import com.tingeso.pagoservice.models.ProveedorModel;
 import com.tingeso.pagoservice.repositories.PagoRepository;
 import com.tingeso.pagoservice.variables.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,27 +35,34 @@ public class PagoService {
         return String.format("%d-%02d-%s", year, month, quincena);
     }
 
-    public List<ValorLecheModel> obtenerListaPorQuincena(String quincena){
-        List<ValorLecheModel> listaValorLecheQuincena = restTemplate.getForObject("http://valorleche-service/empleado/" + quincena, List.class);
-        System.out.println(listaValorLecheQuincena);
-        return listaValorLecheQuincena;
+    public List<ValorLecheModel> obtenerListaPorQuincena(String quincena) {
+        String url = "http://valorleche-service/valorleche/" + quincena;
+        ResponseEntity<List<ValorLecheModel>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<ValorLecheModel>>() {}
+        );
+        List<ValorLecheModel> valorleche = response.getBody();
+        return valorleche;
     }
 
     public ProveedorModel obtenerPorCodigo(String proveedorCode){
-        ProveedorModel proveedorModel = restTemplate.getForObject("http://proveedor-service/" + proveedorCode, ProveedorModel.class);
+        ProveedorModel proveedorModel = restTemplate.getForObject("http://proveedor-service/proveedor/" + proveedorCode, ProveedorModel.class);
         System.out.println(proveedorModel);
         return proveedorModel;
     }
 
     public void generarPagos(int year, int month, String quin) {
-
+        System.out.println("check 1\n");
         String[] quincenas = new String[]{"Q1", "Q2"};
-
+        System.out.println("check 2\n");
         for (String quincena : quincenas) {
-
+            System.out.println("check 3\n");
             String quincenaAux = formatoQuincena(year, month, quincena);
 
-            List<ValorLecheModel> valorLecheEntities = obtenerListaPorQuincena(quincenaAux);
+            List<ValorLecheModel> valorLecheEntities = obtenerListaPorQuincena(quincena);
+            System.out.println(valorLecheEntities);
 
             for (ValorLecheModel valorLecheEntity : valorLecheEntities) {
 
@@ -62,7 +72,6 @@ public class PagoService {
                 double pagoProveedor = calcularPagoProveedor(valorLecheEntity, proveedorEntity);
 
                 double descuentos = calcularDescuentos(proveedorCode, quincenaAux);
-
                 PagoEntity pagosEntity = new PagoEntity();
                 pagosEntity.setQuincena(quincenaAux);
                 pagosEntity.setCodigoProveedor(proveedorEntity.getCodigo());
@@ -85,8 +94,10 @@ public class PagoService {
                 pagosEntity.setPagoTotal(pagoProveedor - descuentos);
                 pagosEntity.setMontoRetencion(calcularRetencion(proveedorEntity.getCodigo(), pagoProveedor - descuentos));
                 pagosEntity.setMontoFinal(pagosEntity.getPagoTotal() - pagosEntity.getMontoRetencion());
+                System.out.println(pagosEntity);
 
-                if (quincenaAux.equals(quin)) {
+                if (quincena.equals(quin)) {
+                    System.out.println("FINAL UWU");
                     pagoRepository.save(pagosEntity);
                 }
             }
@@ -167,9 +178,15 @@ public class PagoService {
     }
 
     public ValorLecheModel findByProveedorAndQuincena(String proveedor, String quincenaActual){
-        ValorLecheModel valorLecheModel = restTemplate.getForObject("http://proveedor-service/" + proveedor + "/" + quincenaActual, ValorLecheModel.class);
-        System.out.println(valorLecheModel);
-        return valorLecheModel;
+        String url = "http://valorleche-service/valorleche/" + proveedor + "/" + quincenaActual;
+        ResponseEntity<ValorLecheModel> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ValorLecheModel>() {}
+        );
+        ValorLecheModel valorLeche = response.getBody();
+        return valorLeche;
     }
 
     public double calcularDescuentos(String proveedor, String quincenaActual) {

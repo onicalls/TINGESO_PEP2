@@ -153,7 +153,7 @@ class PagoComponent extends Component{
                             </thead>
                             <tbody>
                                 {this.state.pago.map((pago) => (
-                                    <tr key={pago.quincena}>
+                                    <tr key={pago.id}>
                                         <td>{pago.quincena}</td>
                                         <td>{pago.codigoProveedor}</td>
                                         <td>{pago.nombreProveedor}</td>

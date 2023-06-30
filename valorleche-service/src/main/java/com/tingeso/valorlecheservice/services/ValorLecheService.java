@@ -38,6 +38,14 @@ public class ValorLecheService {
 
     private final Logger logg = LoggerFactory.getLogger(ValorLecheService.class);
 
+    public List<ValorLecheEntity> buscarPorQuincena(String quincena){
+        return (List<ValorLecheEntity>) valorLecheRepository.findByQuincena(quincena);
+    }
+
+    public ValorLecheEntity findByProveedorAndQuincena(String proveedor, String quincena){
+        return (ValorLecheEntity) valorLecheRepository.findByProveedorAndQuincena(proveedor, quincena);
+    }
+
     public ArrayList<ValorLecheEntity> obtenerData() {
         return (ArrayList<ValorLecheEntity>) valorLecheRepository.findAll();
     }

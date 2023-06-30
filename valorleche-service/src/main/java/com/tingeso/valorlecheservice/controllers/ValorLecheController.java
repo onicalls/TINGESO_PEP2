@@ -29,13 +29,12 @@ public class ValorLecheController {
         return ResponseEntity.ok(data);
     }
 
-    @GetMapping("/rut")
-    public ResponseEntity<List<String>> obtenerRutsDeData(){
-        List<String> ruts = valorLecheService.obtenerRuts();
-        if(ruts.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(ruts);
+    @GetMapping("/{quincena}")
+    public ResponseEntity<List<ValorLecheEntity>> listaValorLecheQuincena(@PathVariable("quincena") String quincena) {
+        List<ValorLecheEntity> lista = valorLecheService.buscarPorQuincena(quincena);
+        if(lista == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping("/primeraasistencia/{rut}")
@@ -47,12 +46,14 @@ public class ValorLecheController {
      return ResponseEntity.ok(fecha);
     }
 
-    @GetMapping("/salida/{rut}/{fecha}")
-    public ResponseEntity<ValorLecheEntity> obtenerHoraSalidaPorRut(
-            @PathVariable("rut") String rut, @PathVariable("fecha") String fecha)
+
+
+    @GetMapping("/{proveedor}/{quincenaActual}")
+    public ResponseEntity<ValorLecheEntity> findByProveedorAndQuincena(
+            @PathVariable("proveedor") String proveedor, @PathVariable("quincenaActual") String quincenaActual)
     {
-        ValorLecheEntity marca_salida = valorLecheService.obtenerEspecifico2(rut, fecha);
-        return ResponseEntity.ok(marca_salida);
+        ValorLecheEntity valorLecheEntidad = valorLecheService.findByProveedorAndQuincena(proveedor, quincenaActual);
+        return ResponseEntity.ok(valorLecheEntidad);
     }
 
     @PostMapping
