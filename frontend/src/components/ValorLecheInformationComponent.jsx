@@ -27,10 +27,9 @@ class ValorLecheInformationComponent extends Component{
                         <table border="1" class="content-table">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
-                                    <th>Turno</th>
                                     <th>Proveedor</th>
-                                    <th>KLS Leche</th>
+                                    <th>% Grasa</th>
+                                    <th>% Solidos Totales</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,7 +37,7 @@ class ValorLecheInformationComponent extends Component{
                                     <tr key={data.id}>
                                         <td>{data.proveedor}</td>
                                         <td>{data.grasa}</td>
-                                        <td>{data.solidototal}</td>
+                                        <td>{data.solido}</td>
                                     </tr>
                                 ))}
                             </tbody>

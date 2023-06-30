@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ValorLecheRepository extends JpaRepository <ValorLecheEntity, Integer>{
 
-    @Query(value = "SELECT * FROM valor_leche WHERE quincena LIKE CONCAT('%-', ?1)", nativeQuery = true)
+    @Query(value = "SELECT * FROM valorleche WHERE quincena LIKE CONCAT('%-', ?1)", nativeQuery = true)
     List<ValorLecheEntity> findByQuincena(String quincena);
 
     @Query(value = "select * from valorleche as e where e.rut = :rut and e.fecha =:fecha limit 1",

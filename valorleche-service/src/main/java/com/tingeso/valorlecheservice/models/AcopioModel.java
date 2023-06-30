@@ -14,4 +14,14 @@ public class AcopioModel {
     private String turno;
     private double klsLeche;
     private LocalDate fecha;
+
+    @Override
+    public String toString() {
+        return "AcopioModel{" +
+                "proveedor='" + proveedor + '\'' +
+                ", turno='" + turno + '\'' +
+                ", klsLeche=" + klsLeche +
+                ", fecha=" + fecha +
+                '}';
+    }
 }

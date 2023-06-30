@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,12 @@ public class AcopioController {
         return ResponseEntity.ok(ruts);
     }
 
-    @GetMapping("/entrada/{fecha}/{proveedor}/{turno}/{klsLeche}")
-    public ResponseEntity<AcopioEntity> obtenerHoraEntradaPorRut(
-            @PathVariable("fecha") String fecha,
-            @PathVariable("proveedor") String proveedor,
-            @PathVariable("turno") String turno,
-            @PathVariable("klsLeche") double klsLeche) {
-
-        AcopioEntity marca_entrada = acopioRepository.obtenerEspecifico(proveedor, turno, klsLeche, fecha);
-        return ResponseEntity.ok(marca_entrada);
+    @GetMapping("/listaacopios/{startDate}/{endDate}")
+    public ResponseEntity<List<AcopioEntity>> acopioEnRango(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) {
+        List<AcopioEntity> acopios = acopioRepository.obtenerProveedoresPorFecha(startDate, endDate);
+        if(acopios == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(acopios);
     }
 
 

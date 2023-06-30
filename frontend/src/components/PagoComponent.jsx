@@ -34,34 +34,54 @@ class PagoComponent extends Component{
 
     componentDidMount() {
         fetch("http://localhost:8080/pago")
-          .then((response) => response.json())
-          .then((data) => this.setState({ pago: data }));
-      }
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener los datos de pago.");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({ pago: data });
+            })
+            .catch((error) => {
+                console.error(error);
+                // Manejar el error, por ejemplo, mostrar un mensaje de error en la interfaz de usuario.
+            });
+    }
 
-    calcularPlantilla = e => {
+
+    calcularPlantilla = async (e) => {
         e.preventDefault();
         swal({
             title: "¿Está seguro de que desea calcular esta planilla?",
             icon: "warning",
             buttons: ["Volver", "Calcular"],
-            dangerMode: true
-        }).then(respuesta=>{
-            if(respuesta){
-                swal("Platilla calculada!", {icon: "success", timer: "3000"});
-                let datos = { codigo: this.state.year, nombre: this.state.month, categoria: this.state.quin};
-                console.log(this.state.year)
-                console.log(this.state.month)
-                console.log(this.state.quin)
+            dangerMode: true,
+        }).then(async (respuesta) => {
+            if (respuesta) {
+                swal("Platilla calculada!", { icon: "success", timer: "3000" });
+                    let datos = {
+                    year: this.state.year,
+                    month: this.state.month,
+                    quin: this.state.quin,
+                };
+                console.log(this.state.year);
+                console.log(this.state.month);
+                console.log(this.state.quin);
                 console.log("datos => " + JSON.stringify(datos));
-                PagoService.getSueldos(datos).then(
-                    (res) => {
-                    }
-                );
+                try {
+                    const res = await PagoService.getSueldos(datos);
+                    // Hacer algo con la respuesta (res)
+                } catch (error) {
+                    console.error(error);
+                    // Manejar el error, por ejemplo, mostrar un mensaje de error en la interfaz de usuario.
+                }
             } else {
-                swal({text: "Plantilla no calculada.", icon: "error"});
+                swal({ text: "Plantilla no calculada.", icon: "error" });
             }
         });
     };
+
 
       render(){
         return(

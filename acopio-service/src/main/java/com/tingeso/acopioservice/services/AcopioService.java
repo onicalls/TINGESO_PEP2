@@ -2,9 +2,11 @@ package com.tingeso.acopioservice.services;
 
 
 import com.tingeso.acopioservice.entities.AcopioEntity;
+import net.bytebuddy.asm.Advice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.tingeso.acopioservice.repositories.AcopioRepository;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +108,10 @@ public class AcopioService {
 
     public List<String> obtenerProveedores() {
         return acopioRepository.findDistinctProveedor();
+    }
+
+    public List<AcopioEntity> obtenerProveedoresPorFecha(String start, String end) {
+        return acopioRepository.findAcopioByDateBetween(start, end);
     }
 
     public void eliminarData(ArrayList<AcopioEntity> datas){

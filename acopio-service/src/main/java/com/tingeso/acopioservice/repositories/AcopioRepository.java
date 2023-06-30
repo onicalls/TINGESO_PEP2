@@ -17,8 +17,8 @@ public interface AcopioRepository extends JpaRepository <AcopioEntity, Integer>{
             nativeQuery = true)
     AcopioEntity buscarData(@Param("proveedor") String proveedor, @Param("turno") String turno, @Param("klsLeche") Double klsLeche, @Param("fecha") String fecha);
 
-    @Query(value = "SELECT * FROM acopio WHERE fecha BETWEEN :start AND :end", nativeQuery = true)
-    List<AcopioEntity> findAcopioByDateBetween(@Param("start") LocalDate start, @Param("end") LocalDate end);
+    @Query(value = "SELECT * FROM acopio WHERE fecha BETWEEN :startDate AND :endDate", nativeQuery = true)
+    List<AcopioEntity> findAcopioByDateBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
     @Query(value = "select distinct proveedor from acopio", nativeQuery = true)
     List<String> findDistinctProveedor();

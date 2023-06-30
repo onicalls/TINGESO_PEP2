@@ -1,6 +1,7 @@
 package com.tingeso.pagoservice.controllers;
 
 import com.tingeso.pagoservice.entities.PagoEntity;
+import com.tingeso.pagoservice.models.PagoModel;
 import com.tingeso.pagoservice.services.PagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,13 @@ public class PagoController {
         return ResponseEntity.ok(proveedors);
     }
 
-    @PostMapping("/generarPagos")
-    public String generarPlanillaPagos(@RequestParam("anio") int anio,
-                                       @RequestParam("mes") int mes,
-                                       @RequestParam("quin") String quin,
-                                       Model model) {
-        pagoService.generarPagos(anio, mes, quin);
-        return "redirect:/pagos";
+    @PostMapping
+    public String getSueldos(@RequestBody PagoModel pagoModel, Model model) {
+        int year = pagoModel.getYear();
+        int month = pagoModel.getMonth();
+        String quin = pagoModel.getQuin();
+        pagoService.generarPagos(year, month, quin);
+        return "ok";
     }
+
 }

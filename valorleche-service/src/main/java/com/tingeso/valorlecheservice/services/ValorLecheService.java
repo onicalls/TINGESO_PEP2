@@ -6,6 +6,9 @@ import com.tingeso.valorlecheservice.models.AcopioModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -79,6 +82,7 @@ public class ValorLecheService {
         } catch (Exception e) {
             System.err.println("No se encontro el archivo");
         } finally {
+            calcularKilosTotalesQuincena(year, month, quincena);
             if (bf != null) {
                 try {
                     bf.close();
@@ -120,11 +124,18 @@ public class ValorLecheService {
         return year + "-" + monthString + "-" + quincena;
     }
 
-    public List<AcopioModel> acopioEnRango(LocalDate startDate, LocalDate endDate){
-        List<AcopioModel> acopios = restTemplate.getForObject("http://acopio-service/acopio/" + startDate.toString() +"/"+ endDate.toString(), List.class);
-        System.out.println(acopios);
+    public List<AcopioModel> acopioEnRango(LocalDate startDate, LocalDate endDate) {
+        String url = "http://acopio-service/acopio/listaacopios/" + startDate.toString() + "/" + endDate.toString();
+        ResponseEntity<List<AcopioModel>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<AcopioModel>>() {}
+        );
+        List<AcopioModel> acopios = response.getBody();
         return acopios;
     }
+
 
     public void calcularKilosTotalesQuincena(int year, int month, String quincena) {
         LocalDate startDate;
@@ -145,15 +156,18 @@ public class ValorLecheService {
         List<AcopioModel> acopioEntities = acopioEnRango(startDate, endDate);
 
         Map<String, ProviderData> providerDataMap = new HashMap<>();
+        System.out.println("Checkpoint 1\n");
         for (AcopioModel acopio : acopioEntities) {
+
+            System.out.println("Checkpoint 2\n");
+            System.out.println("Acopio " + acopio.toString());
             String provider = acopio.getProveedor();
             ProviderData providerData = providerDataMap.getOrDefault(provider, new ProviderData());
             providerData.addKilos(acopio.getKlsLeche());
             providerData.addDelivery(acopio.getTurno());
             providerDataMap.put(provider, providerData);
         }
-
-        // Save or update ValorLecheEntity for each provider
+        System.out.println("Checkpoint 3\n");
         for (Map.Entry<String, ProviderData> entry : providerDataMap.entrySet()) {
             String provider = entry.getKey();
             ProviderData providerData = entry.getValue();

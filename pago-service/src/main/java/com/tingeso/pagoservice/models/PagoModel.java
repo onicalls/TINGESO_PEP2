@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagoModel {
-    private String rut;
-    private String fecha;
+    private int year;
+    private int month;
+    private String quin;
 }
