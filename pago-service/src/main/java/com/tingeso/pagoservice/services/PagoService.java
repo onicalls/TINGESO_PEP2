@@ -84,7 +84,7 @@ public class PagoService {
                 pagosEntity.setPorcentajeVariacionGrasa(calcularVariacionGrasa(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()));
                 pagosEntity.setPorcentajeSolidosTotales(valorLecheEntity.getSolido());
                 pagosEntity.setPorcentajeVariacionST(calcularVariacionSolidos(valorLecheEntity, valorLecheEntity.getQuincena(), valorLecheEntity.getProveedor()));
-                pagosEntity.setPagoPorLeche(pagoProveedor);
+                pagosEntity.setPagoPorLeche(calcularPagoKiloLeche(proveedorEntity.getCategoria()));
                 pagosEntity.setPagoPorGrasa(calcularPagoGrasa(valorLecheEntity.getGrasa()));
                 pagosEntity.setPagoPorSolidosTotales(calcularPagoSolidos(valorLecheEntity.getSolido()));
                 pagosEntity.setBonificacionPorFrecuencia(calcularBonificacionFrecuencia(valorLecheEntity.getConstancia(), valorLecheEntity.getKilos(), pagoProveedor));
