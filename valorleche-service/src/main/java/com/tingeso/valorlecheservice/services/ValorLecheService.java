@@ -113,15 +113,6 @@ public class ValorLecheService {
         guardarData(newData);
     }
 
-
-    public String obtenerFechaRut(String rut){
-        return valorLecheRepository.buscarFechaRut(rut);
-    }
-
-    public List<String> obtenerRuts() {
-        return valorLecheRepository.findDistinctRut();
-    }
-
     public void eliminarData(ArrayList<ValorLecheEntity> datas){
         valorLecheRepository.deleteAll(datas);
     }

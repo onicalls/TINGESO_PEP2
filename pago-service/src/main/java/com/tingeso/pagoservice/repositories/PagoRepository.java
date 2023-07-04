@@ -9,7 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PagoRepository extends JpaRepository<PagoEntity, String> {
 
-    @Query(value = "insert into pago(proveedor) values(?)",
-            nativeQuery = true)
-    void insertarDatos(@Param("proveedor") String rut);
 }

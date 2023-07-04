@@ -25,15 +25,11 @@ public class ProveedorService {
         return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
     }
 
-    public String obtenerCategoria(String rut){
-        return proveedorRepository.findCategory(rut);
-    }
-
     public ProveedorEntity findByCodigo(String codigo){
         return proveedorRepository.findByCodigo(codigo);
     }
 
-    public void guardarproveedor(ProveedorEntity proveedor){
+    public void guardarProveedor(ProveedorEntity proveedor){
         proveedorRepository.save(proveedor);
     }
 
@@ -41,18 +37,10 @@ public class ProveedorService {
         proveedorRepository.deleteAll();
     }
 
-    public List<JustificativoModel> obtenerJustificativos(String rut) {
-        List<JustificativoModel> justificativos = restTemplate.getForObject("http://justificativo-service/justificativos/porproveedores/" + rut, List.class);
-        return justificativos;
-    }
 
     public void guardarProveedor(String codigo, String nombre, String categoria, String retencion) {
         ProveedorEntity proveedor = new ProveedorEntity(codigo, nombre, categoria, retencion);
         proveedorRepository.save(proveedor);
     }
 
-    public List<AutorizacionModel> obtenerAutorizaciones(String rut) {
-        List<AutorizacionModel> autorizaciones = restTemplate.getForObject("http://autorizacion-service/autorizaciones/porproveedores/" + rut, List.class);
-        return autorizaciones;
-    }
 }

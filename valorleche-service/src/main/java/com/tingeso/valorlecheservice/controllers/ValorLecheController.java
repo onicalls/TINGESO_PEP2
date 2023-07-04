@@ -37,17 +37,6 @@ public class ValorLecheController {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/primeraasistencia/{rut}")
-    public ResponseEntity<String> obtenerPrimeraAsistencia(@PathVariable("rut") String rut){
-     String fecha = valorLecheService.obtenerFechaRut(rut);
-     if (fecha.isEmpty()){
-         return ResponseEntity.noContent().build();
-     }
-     return ResponseEntity.ok(fecha);
-    }
-
-
-
     @GetMapping("/{proveedor}/{quincenaActual}")
     public ResponseEntity<ValorLecheEntity> findByProveedorAndQuincena(
             @PathVariable("proveedor") String proveedor, @PathVariable("quincenaActual") String quincenaActual)

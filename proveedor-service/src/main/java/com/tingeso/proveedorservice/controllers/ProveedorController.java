@@ -1,8 +1,6 @@
 package com.tingeso.proveedorservice.controllers;
 
 import com.tingeso.proveedorservice.entities.ProveedorEntity;
-import com.tingeso.proveedorservice.models.AutorizacionModel;
-import com.tingeso.proveedorservice.models.JustificativoModel;
 import com.tingeso.proveedorservice.services.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,32 +31,15 @@ public class ProveedorController {
     }
 
     @PostMapping
-    public void guardarproveedor(@RequestBody ProveedorEntity proveedor){
-        proveedorService.guardarproveedor(proveedor);
+    public void guardarProveedor(@RequestBody ProveedorEntity proveedor){
+        proveedorService.guardarProveedor(proveedor);
     }
 
     @GetMapping("/eliminar")
-    public void eliminarproveedors(){
+    public void eliminarProveedores(){
         proveedorService.eliminarproveedors();
     }
 
-    @GetMapping("/justificativos/{rut}")
-    public ResponseEntity<List<JustificativoModel>> obtenerJustificativos(@PathVariable("rut") String rut) {
-        ProveedorEntity proveedor = proveedorService.findByCodigo(rut);
-        if(proveedor == null)
-            return ResponseEntity.notFound().build();
-        List<JustificativoModel> justificativos = proveedorService.obtenerJustificativos(rut);
-        return ResponseEntity.ok(justificativos);
-    }
-
-    @GetMapping("/autorizaciones/{rut}")
-    public ResponseEntity<List<AutorizacionModel>> obtenerAutorizaciones(@PathVariable("rut") String rut) {
-        ProveedorEntity proveedor = proveedorService.findByCodigo(rut);
-        if(proveedor == null)
-            return ResponseEntity.notFound().build();
-        List<AutorizacionModel> autorizaciones = proveedorService.obtenerAutorizaciones(rut);
-        return ResponseEntity.ok(autorizaciones);
-    }
 
     @PostMapping("/addProveedor")
     public String addProveedor(@RequestParam("codigo") String codigo,

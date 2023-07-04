@@ -47,24 +47,6 @@ public class AcopioController {
         return ResponseEntity.ok(acopios);
     }
 
-
-    @GetMapping("/primeraasistencia/{rut}")
-    public ResponseEntity<String> obtenerPrimeraAsistencia(@PathVariable("rut") String rut){
-     String fecha = acopioRepository.obtenerFechaRut(rut);
-     if (fecha.isEmpty()){
-         return ResponseEntity.noContent().build();
-     }
-     return ResponseEntity.ok(fecha);
-    }
-
-    @GetMapping("/salida/{rut}/{fecha}")
-    public ResponseEntity<AcopioEntity> obtenerHoraSalidaPorRut(
-            @PathVariable("rut") String rut, @PathVariable("fecha") String fecha)
-    {
-        AcopioEntity marca_salida = acopioRepository.obtenerEspecifico2(rut, fecha);
-        return ResponseEntity.ok(marca_salida);
-    }
-
     @PostMapping
     public void guardarData(@RequestParam("file") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException{
         acopioRepository.guardar(file);

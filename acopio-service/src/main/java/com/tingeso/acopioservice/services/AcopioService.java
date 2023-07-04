@@ -50,14 +50,6 @@ public class AcopioService {
         }
     }
 
-    public AcopioEntity obtenerEspecifico(String proveedor, String turno, double klsLeche, String fecha) {
-        return acopioRepository.buscarData(proveedor, turno, klsLeche, fecha);
-    }
-
-    public AcopioEntity obtenerEspecifico2(String rut, String fecha){
-        return acopioRepository.buscarData2(rut, fecha);
-    }
-
     public void leerCsv(String direccion) {
         String texto = "";
         BufferedReader bf = null;
@@ -100,10 +92,6 @@ public class AcopioService {
         newData.setProveedor(proveedor);
         newData.setKlsLeche(klsLeche);
         guardarData(newData);
-    }
-
-    public String obtenerFechaRut(String rut){
-        return acopioRepository.buscarFechaRut(rut);
     }
 
     public List<String> obtenerProveedores() {
