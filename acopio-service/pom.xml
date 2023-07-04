@@ -12,7 +12,7 @@
 	<artifactId>acopio-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>acopio-service</name>
-	<description>Empleado</description>
+	<description>Acopio</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.4</spring-cloud.version>

@@ -75,7 +75,6 @@ public class ValorLecheService {
     public void leerCsv(String direccion, int year, int month, String quincena) {
         String texto = "";
         BufferedReader bf = null;
-        valorLecheRepository.deleteAll();
         try {
             bf = new BufferedReader(new FileReader(direccion));
             bf.readLine();
