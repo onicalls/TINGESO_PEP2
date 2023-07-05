@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acopio-deployment
+  labels:
+    app: acopio-deployment
+spec:
+  selector:
+    matchLabels:
+      app: acopio-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: acopio-deployment
+    spec:
+      containers:
+        - name: acopio
+          image: onicalls/acopio-service
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-service:8081
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-db-service:3306/acopio_db?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
