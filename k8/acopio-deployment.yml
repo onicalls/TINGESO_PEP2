@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: acopio-deployment
+  namespace: milkstgo
   labels:
     app: acopio-deployment
 spec:
@@ -24,3 +25,7 @@ spec:
               value: http://config-service:8081
             - name: SPRING_DATASOURCE_URL
               value: jdbc:mysql://mysql-db-service:3306/acopio_db?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka-service:8761
+            - name: eureka.instance.preferIpAddress
+              value: "true"

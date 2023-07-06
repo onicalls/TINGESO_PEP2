@@ -59,7 +59,7 @@ class PagoComponent extends Component{
             dangerMode: true,
         }).then(async (respuesta) => {
             if (respuesta) {
-                swal("Platilla calculada!", { icon: "success", timer: "3000" });
+                swal("Plantilla calculada!", { icon: "success", timer: "3000" });
                     let datos = {
                     year: this.state.year,
                     month: this.state.month,
@@ -71,10 +71,9 @@ class PagoComponent extends Component{
                 console.log("datos => " + JSON.stringify(datos));
                 try {
                     const res = await PagoService.getSueldos(datos);
-                    // Hacer algo con la respuesta (res)
+                    window.location.reload()
                 } catch (error) {
                     console.error(error);
-                    // Manejar el error, por ejemplo, mostrar un mensaje de error en la interfaz de usuario.
                 }
             } else {
                 swal({ text: "Plantilla no calculada.", icon: "error" });
@@ -88,6 +87,7 @@ class PagoComponent extends Component{
             <div className="home">
                 <NavbarComponent3 />
                 <Styles>
+                <div className="form1">
                     <h1 className="text-center"> <b>Reporte de Planilla de pago ($CLP)</b></h1>
                     <Form.Group className="mb-3" controlId="year" value={this.state.year} onChange={this.changeYearHandler}>
                         <Form.Label>Año:</Form.Label>
@@ -123,6 +123,7 @@ class PagoComponent extends Component{
                     </Form.Group>
                     <Button varian="primary" onClick={this.calcularPlantilla}>
                     Calcular Planilla</Button>
+                    </div>
                     <div className="f">
                         
                         <table border="1" class="content-table">
@@ -252,5 +253,12 @@ const Styles = styled.div`
 .content-table tbody tr.active-row{
     font-weight: bold;
     color: #009879;
+}
+.form1{
+    border: 1px solid rgb(82, 82, 173);
+    padding: 30px;
+    border-radius: 30px;
+    margin-left: 300px;
+    margin-right: 300px;
 }
 `

@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import styled from "styled-components";
 import { createGlobalStyle } from 'styled-components'
 
@@ -107,7 +106,7 @@ const HomeStyle = styled.nav`
 }
 
 .single-box:nth-child(1) .img-area{
-    background-image: url(https://img.freepik.com/vector-premium/chat-archivo-documento-texto-comentando-o-editando-documentos-linea-ilustracion-dibujos-animados-plana_101884-838.jpg)
+    background-image: url(https://cdn.discordapp.com/attachments/993987302219075586/1126217155420114984/kisspng-computer-icons-transport-vendor-5af5c3301a6120.9075566015260557281081.png)
 }
 
 .header-text{

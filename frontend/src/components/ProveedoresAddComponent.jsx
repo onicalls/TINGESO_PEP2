@@ -128,7 +128,7 @@ const Styles = styled.div`
 }
 
 .home{
-    background-color: #006992;
+    background-color: #f3f3f3;
     margin: 0;
     padding: 0;
 }
@@ -142,10 +142,11 @@ const Styles = styled.div`
 }
 
 .form1{
-    border: 9px solid #CED0CE;
-    background-color: #DADDD8;
-    width: 50%;
-    padding: 36px;
+    border: 1px solid rgb(82, 82, 173);
+    padding: 30px;
+    border-radius: 30px;
+    margin-left: 300px;
+    margin-right: 300px;
 }
 
 input[type=codigo], input[type=fecha] {

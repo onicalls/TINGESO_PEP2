@@ -19,7 +19,15 @@ spring:
       dialect: MySQL8Dialect
       ddl-auto: create
 
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+
 eureka:
   client:
+    fetch-registry: true
+    register-with-eureka: true
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-service:8761/eureka/

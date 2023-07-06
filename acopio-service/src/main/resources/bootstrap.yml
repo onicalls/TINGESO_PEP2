@@ -18,3 +18,14 @@ spring:
     hibernate:
       dialect: MySQL8Dialect
       ddl-auto: create
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
